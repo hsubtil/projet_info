@@ -1,0 +1,21 @@
+var fs = require('fs');	
+var path = require('path');
+
+module.exports = function (dirPath, extFile, cb) {
+	var result = [];
+	fs.readdir(dirPath, extFile, function(err, data){
+		if(!!err){
+			return console.error(err);
+		}
+
+		for(var i in data){
+			var fileName = data[i];
+			if (path.extname(fileName) == '.' + extFile){
+				result.push(fileName); 
+			}
+		}
+
+		return cb(null,result); 
+
+	});
+}

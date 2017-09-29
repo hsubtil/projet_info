@@ -1,0 +1,12 @@
+var dirPath = process.argv[2];
+var extFile = process.argv[3];
+
+
+const supermodule = require('./exo6');
+supermodule(dirPath, extFile, function(err, data){
+		if(!!err){
+		return console.error(err);
+	}
+	console.dir(data);
+});
+

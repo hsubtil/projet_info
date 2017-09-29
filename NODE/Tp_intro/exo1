@@ -1,0 +1,14 @@
+function calc() {
+	var sum=0;
+
+	for ( var i in process.argv){
+		var elm = Number(process.argv[i]);
+
+		if (!Number.isNaN(elm)){
+			sum += elm;
+		}
+	} 
+	console.log(sum)
+}
+
+calc();

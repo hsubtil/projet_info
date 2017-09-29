@@ -1,0 +1,7 @@
+function lc() {
+	var fs = require('fs');	
+	var count = fs.readFileSync(process.argv[2]);
+	console.log(count.toString().split(/\r\n|\r|\n/).length)
+}
+
+lc();

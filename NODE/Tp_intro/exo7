@@ -1,0 +1,17 @@
+var http = require('http')
+
+url = process.argv[2]
+http.get(url, function(res){
+	
+	var data ="";
+
+	res.setEncoding('utf8');
+
+	res.on('data', function(chunck){
+		data+=chunck;
+	});
+	res.on('error', console.error);
+	res.on('end', function(){
+		console.log(data);
+	});
+});
