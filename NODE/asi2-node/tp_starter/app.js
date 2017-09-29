@@ -22,28 +22,27 @@ server.listen(CONFIG.port, function (){
 });
 
 app.use(defaultRoute);
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.use(bodyParser.json()); // support pour les ficher json 
 
 // #2
-/*app.get("/", function(request, response) {
+app.get("/", function(request, response) {
 	response.send("It works !");
-});*/
+});
 
 // #3
 app.get("/loadPres",function(request, response, cb) {
+  // TODO : Vérifier la caractère asynch
 	console.log("%s",request.url);
 		//var listFile = [];
 		var final_json = {} // empty Object
 		fs.readdir(CONFIG.contentDirectory, function(err, data){
-			if (!!err) {
-			if (cb) {
+		  if (!!err) {
+			 if (cb) {
 				return cb(err);
-			}
-		}
+			  }
+		  }
 
 		for (var i in data) {
-			// TODO : test affichage 
 			var fileName = data[i];
 			if (path.extname(fileName) === ".json") {
 				var content = fs.readFileSync(CONFIG.contentDirectory+'/'+ fileName)	
@@ -56,16 +55,15 @@ app.get("/loadPres",function(request, response, cb) {
 	})
 });
 
-app.post("/savePres", function(request, response) {
-	  var post_req = http.request(function(res) {
-	  console.log("test");
-      res.setEncoding('utf8');
-      res.on('data', function (chunk) {
-          console.log('Response: ' + chunk);
-      });
-  });
-
+app.post('/savePres', function(request, response){
+  //Pour test : Postman -> Body -> JSON
+  console.log('/savePres '+ JSON.stringify(request.body));
+  //Parsage du titre du fichier
+  var new_json = JSON.stringify(request.body).split(',')[0].split(':')[1];
+  new_json = new_json.toString().substring(1,new_json.length-1)+".pres.json";
+  fs.writeFile(CONFIG.contentDirectory+'/'+new_json,JSON.stringify(request.body));
+  console.log(new_json+" is create");
+  response.send(request.body);    // echo du résultat
 });
-
 
 app.use("/admin", express.static(path.join(__dirname, "public/admin")));
