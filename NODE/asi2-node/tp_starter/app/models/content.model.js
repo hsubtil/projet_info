@@ -1,34 +1,47 @@
-function ContentModel(id) {
-  this.id = id;
-  /*
-  get id() {
-    return this.id();
-  }
-  static create(content, callback){
-    //TODO
-  }*/
+'use strict';
+var CONFIG = require("../../config.json");
+process.env.CONFIG = JSON.stringify(CONFIG);
 
+var fs = require("fs");
+
+module.exports = ContentModel;
+
+function ContentModel (content) {
+   this.id = 0;
+   this.type = "";
+   this.title = "";
+   this.src="";
+   this.fileName = "";
+   var data;
+
+    this.setData = function(data) {
+      this.data = data;
+  }
+  
+    this.getData= function() {
+      return data;
+  }
+} 
+
+ContentModel.create = function (contentModel, cb){
+  var filePath = CONFIG.contentDirectory+'/'+contentModel.fileName;
+  var metaData = CONFIG.contentDirectory+'/'+contentModel.id+".meta.json";
+  fs.writeFile(filePath,contentModel.data);
+  fs.writeFile(metaData,JSON.stringify(contentModel));  // Check for metadata ? 
+  console.log("File %s, created",filePath);
+  cb();
 }
 
-/*
- *   : Prend un objet contentModel en paramètre, stocke le contenu de [content.data]
-dans le fichier [content.fileName] (dans le cas d'un contenu de type 'img') et stocke les meta-données dans
-un fichier [contentModel.id].meta.json dans le répertoire [CONFIG.contentDirectory].
+ContentModel.read = function (contentModel, cb){
+  //TO DO
+  cb();
+}
 
-type: public - ['img', 'img_url', 'video', 'web']
-id: public - UUID
-title: public
-src: public - l'URL qui permet d'acceder au contenu
-fileName: public - le nom du fichier stocké dans [CONFIG.contentDirectory] dans le cas d'un contenu de
-type 'img'. Il correspond a l'id du contenu + l'extension qui sera récupérée à partir du fichier original (png,
-jpeg...).
-data: privé - accessible par getData() et setData()
-*/
-
-
-  //var type;
-  //this.id;
-  //var src;
-  //var fileName;
-  //var type;
-  //var data; //Privé ?
+ContentModel.update = function (contentModel, cb){
+  //TO DO
+  cb();
+}
+ContentModel.delete = function (contentModel, cb){
+  //TO DO
+  cb();
+}
