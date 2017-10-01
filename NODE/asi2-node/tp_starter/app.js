@@ -23,6 +23,7 @@ server.listen(CONFIG.port, function (){
 
 app.use(defaultRoute);
 app.use(bodyParser.json()); // support pour les ficher json 
+app.use("/admin", express.static(path.join(__dirname, "public/admin"))); // Ajoute une redirection vers le dossier admin
 
 // #2
 app.get("/", function(request, response) {
@@ -36,7 +37,7 @@ app.get("/loadPres",function(request, response, cb) {
 		//var listFile = [];
 		var final_json = {} // empty Object
 		fs.readdir(CONFIG.contentDirectory, function(err, data){
-		  if (!!err) {
+		if (!!err) {
 			 if (cb) {
 				return cb(err);
 			  }
@@ -62,8 +63,8 @@ app.post('/savePres', function(request, response){
   var new_json = JSON.stringify(request.body).split(',')[0].split(':')[1];
   new_json = new_json.toString().substring(1,new_json.length-1)+".pres.json";
   fs.writeFile(CONFIG.contentDirectory+'/'+new_json,JSON.stringify(request.body));
-  console.log(new_json+" is create");
+  console.log(new_json+" created");
   response.send(request.body);    // echo du résultat
 });
 
-app.use("/admin", express.static(path.join(__dirname, "public/admin")));
+
