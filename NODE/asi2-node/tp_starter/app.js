@@ -46,10 +46,8 @@ app.get("/loadPres",function(request, response, cb) {
 		for (var i in data) {
 			var fileName = data[i];
 			if (path.extname(fileName) === ".json") {
-				var content = fs.readFileSync(CONFIG.contentDirectory+'/'+ fileName)	
-				var key = content.toString().split(',')[0].split(':')[1];
-				key = key.substring(1,key.length-1);
-				final_json[key] = content.toString();
+				var content = JSON.parse(fs.readFileSync(CONFIG.contentDirectory+'/'+ fileName));
+				final_json[content['id']] = content;
 			}
 		}
 		response.send(final_json);			
@@ -58,12 +56,9 @@ app.get("/loadPres",function(request, response, cb) {
 
 app.post('/savePres', function(request, response){
   //Pour test : Postman -> Body -> JSON
-  console.log('/savePres '+ JSON.stringify(request.body));
-  //Parsage du titre du fichier
-  var new_json = JSON.stringify(request.body).split(',')[0].split(':')[1];
-  new_json = new_json.toString().substring(1,new_json.length-1)+".pres.json";
-  fs.writeFile(CONFIG.contentDirectory+'/'+new_json,JSON.stringify(request.body));
-  console.log(new_json+" created");
+  console.log('/savePres '+ request.body['id']);
+  fs.writeFile(CONFIG.contentDirectory+'/'+request.body['id']+'.pres.json',JSON.stringify(request.body));
+  console.log(request.body['id']+" created");
   response.send(request.body);    // echo du résultat
 });
 
