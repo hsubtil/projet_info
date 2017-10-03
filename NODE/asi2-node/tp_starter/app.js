@@ -10,6 +10,8 @@ var fs = require("fs");
 var bodyParser = require('body-parser'); //test
 
 var defaultRoute = require("./app/routes/default.route.js");
+var defaultRoute = require("./app/routes/content.router.js");
+
 
 // init server
 var app = express();
