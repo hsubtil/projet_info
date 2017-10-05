@@ -1,0 +1,37 @@
+!SESSION 2017-10-05 08:26:11.926 -----------------------------------------------
+eclipse.buildId=4.6.1.M20160907-1200
+java.version=1.8.0_101
+java.vendor=Oracle Corporation
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.jee.product
+Command-line arguments:  -data /home/ubuntu/Documents/projet_info/JEE/asi2 -os linux -ws gtk -arch x86_64 -product org.eclipse.epp.package.jee.product
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-10-05 08:28:15.895
+!MESSAGE The POM for fr.cpe:asi2_blank-web:war:1.0-SNAPSHOT is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-10-05 08:28:15.930
+!MESSAGE The POM for fr.cpe:asi2_blank-ejb:jar:1.0-SNAPSHOT is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-10-05 08:28:16.221
+!MESSAGE The POM for fr.cpe:asi2_blank-web:war:1.0-SNAPSHOT is missing, no dependency information available
+
+!ENTRY org.eclipse.m2e.logback.appender 2 0 2017-10-05 08:28:16.221
+!MESSAGE The POM for fr.cpe:asi2_blank-ejb:jar:1.0-SNAPSHOT is missing, no dependency information available
+
+!ENTRY org.eclipse.core.jobs 4 2 2017-10-05 08:29:22.884
+!MESSAGE An internal error occurred during: "Loading descriptor for asi2_blank-ear.".
+!STACK 0
+java.lang.NullPointerException
+	at org.eclipse.jst.jee.model.internal.JEE5ModelProvider.createModelResource(JEE5ModelProvider.java:207)
+	at org.eclipse.jst.jee.model.internal.JEE5ModelProvider.getModelResource(JEE5ModelProvider.java:188)
+	at org.eclipse.jst.jee.model.internal.EAR5ModelProvider.getModelObject(EAR5ModelProvider.java:53)
+	at org.eclipse.jst.jee.model.internal.JEE5ModelProvider.getModelObject(JEE5ModelProvider.java:231)
+	at org.eclipse.jst.jee.ui.internal.navigator.Ear5ContentProvider.getNewContentProviderInstance(Ear5ContentProvider.java:153)
+	at org.eclipse.jst.jee.ui.internal.navigator.LoadingJeeDDJob.run(LoadingJeeDDJob.java:50)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:55)
+
+!ENTRY org.eclipse.wst.server.discovery 1 0 2017-10-05 08:41:22.736
+!MESSAGE already installed: org.eclipse.jst.server.generic.jonas4
+
+!ENTRY org.eclipse.wst.server.discovery 1 0 2017-10-05 08:43:33.876
+!MESSAGE already installed: org.eclipse.jst.server.generic.jonas4
