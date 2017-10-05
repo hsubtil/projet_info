@@ -1,5 +1,0 @@
-INDEX VERSION 1.129+/home/ubuntu/Documents/projet_info/JEE/asi2/.metadata/.plugins/org.eclipse.jdt.core
-2926607178.index
-2077407903.index
-2587896061.index
-910823579.index
