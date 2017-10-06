@@ -1,0 +1,5 @@
+Problèmes possibles :
+
+NPM :
+	Si err sur mutler : npm install mutler
+	Si err when starting : npm update

@@ -2,13 +2,43 @@
 var CONFIG = require("../../config.json");
 process.env.CONFIG = JSON.stringify(CONFIG);
 
+var fs = require("fs");
+var path = require("path");
+var ContentModel = require("../models/content.model.js");
+
+
 module.exports = this;
 
-this.list = function() {
+this.list = function(req, rep, next) {
+//CONFIG.contentDirectory
+// JSON.parse
+var final_json = {} // empty Object
+fs.readdir(CONFIG.contentDirectory, function(err, data){
+	if (!!err) {
+				console.log(err);
+				return err;
+	}
+		for (var i in data) {
+			var fileName = data[i];
+			if (path.extname(fileName) === ".json") {
+				var content = JSON.parse(fs.readFileSync(CONFIG.contentDirectory+'/'+ fileName));
+				var contentModel= new ContentModel();
+				contentModel.id = content['id'];
+				contentModel.type = content['type'];
+				contentModel.title = content['title'];
+				contentModel.fileName = content['fileName'];
+				contentModel.src = content['src'];
+				final_json[content['id']] = contentModel ;
+			}
+		}
+	rep.send(final_json);
+
+	//console.log(final_json);
+	})				
 
 };
 
-this.read = function() {
+this.read = function(req, rep, next) {
 
 };
 
