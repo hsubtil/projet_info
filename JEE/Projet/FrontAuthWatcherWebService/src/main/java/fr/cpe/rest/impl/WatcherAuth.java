@@ -2,6 +2,7 @@ package fr.cpe.rest.impl;
 
 import java.util.logging.Logger;
 
+import common.model.User;
 import common.model.UserModel;
 import fr.cpe.rest.IWatcherAuth;
 
@@ -10,14 +11,18 @@ public class WatcherAuth implements IWatcherAuth{
 	Logger logger= Logger.getLogger(WatcherAuth.class.getName());
 	
 	@Override
-	public UserModel getUser (String login, String password){
+	public String getUser (User user){
 		
-		UserModel user = new UserModel ();
-		user.setLogin(login);
-		user.setPassword(password);
-		System.out.println(user.toString());
-		//return "it works !!!";
-		return user;
+		UserModel fullUser = new UserModel ();
+		fullUser.setLogin(user.getLogin());
+		fullUser.setPassword(user.getPassword());
+		
+		//TO DO create method which queries user's infos from userModel
+		fullUser.setRole("ADMIN");//TO Do:  delete when method created
+		System.out.println(fullUser.toString());
+		
+		String returnString = "{\"login\" : \"" + fullUser.getLogin() + "\", \"validAuth\" : \"true\", \"role\" : \"" + fullUser.getRole() + "\"}";
+		return returnString;
 	}
 	
 
