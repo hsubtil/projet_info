@@ -3,7 +3,8 @@ import './main.css';
 import '../../lib/bootstrap-3.3.7/dist/css/bootstrap.min.css';
 import * as contentMapTmp from '../../source/contentMap.json';
 import Content from '../common/content/containers/Content';
-import BrowseContentPanel from '../browseContentPanel/containers/BrowseContentPanel'
+import BrowseContentPanel from '../browseContentPanel/containers/BrowseContentPanel';
+import Slid from '../common/slid/containers/Slid';
 
 //<Content id = "premiere slide" src="https://www.youtube.com/embed/gfe4emhwQkE" type ="video" title ="Slide lalalala" onlyContent = "true"/>
 //				 	<Content id = "deuxieme slide" src ="https://www.w3schools.com/css/trolltunga.jpg" type ="img" title ="Slide lalalala" onlyContent = "false"/>
@@ -34,12 +35,12 @@ export default class Main extends React.Component{
 		 <div className='container-fluid height-100'>
 			 <div className="row height-100">
 				 <div className='col-md-3 col-lg-3 height-100 vertical-scroll'>
-				 	<h1>Slide display</h1>
 				 	
 
 				 </div>
 				<div className='col-md-6 col-lg-6 height-100'>
-
+					<Slid contentMapList={this.state.contentMap} content="4" title="Youtube" txt = "CC'est la page youtube de la mort qui tue" displayMode ="SHORT"/>
+					<Slid contentMapList={this.state.contentMap} content="1" title="Birdy" txt = "C'est un petit oiseau qui se baladait lalalala" displayMode ="FULL_MNG"/>
 				</div>
 				<div className='col-md-3 col-lg-3 height-100'>
 					<BrowseContentPanel contentMapList = {this.state.contentMap} />
