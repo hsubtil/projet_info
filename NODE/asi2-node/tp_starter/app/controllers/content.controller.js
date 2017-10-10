@@ -5,10 +5,7 @@ process.env.CONFIG = JSON.stringify(CONFIG);
 var fs = require("fs");
 var path = require("path");
 var ContentModel = require("../models/content.model.js");
-var multer = require("multer"); 
-
-var multerMiddleware = multer({ "dest": "/tmp/" }); 
-
+var utils = require("../utils/utils.js");
 module.exports = this;
 
 this.list = function(req, rep, next) {
@@ -42,10 +39,25 @@ fs.readdir(CONFIG.contentDirectory, function(err, data){
 };
 
 this.create = function(req, rep, next) {
-  console.log("content.controllet.create");
-
-  
-}
+  //TODO : Ask for formular 15.
+  console.log("content.controller.create");
+  console.log(req.file.path); // The full path to the uploaded file
+  console.log(req.file.originalname); // Name of the file on the user's computer
+  console.log(req.file.mimetype); // Mime type of the file
+  var contentModel = new ContentModel();
+  contentModel['id']=utils.generateUUID();
+  contentModel['src']=req.file.path;
+  contentModel['typ']=req.file.mimetype;
+  contentModel['fileName']=req.file.originalname;
+  var content = ContentModel.create(contentModel, function(err){
+      if(err){
+	console.log(err);
+      }
+      else{
+	rep.send("Done"); 
+      }
+  });	 
+};
 
 this.read = function(req, rep, next) {
   console.log("content.controller.read");
