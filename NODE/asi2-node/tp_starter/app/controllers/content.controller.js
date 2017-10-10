@@ -5,13 +5,16 @@ process.env.CONFIG = JSON.stringify(CONFIG);
 var fs = require("fs");
 var path = require("path");
 var ContentModel = require("../models/content.model.js");
+var multer = require("multer"); 
 
+var multerMiddleware = multer({ "dest": "/tmp/" }); 
 
 module.exports = this;
 
 this.list = function(req, rep, next) {
 //CONFIG.contentDirectory
 // JSON.parse
+console.log("content.controller.list");
 var final_json = {} // empty Object
 fs.readdir(CONFIG.contentDirectory, function(err, data){
 	if (!!err) {
@@ -38,8 +41,35 @@ fs.readdir(CONFIG.contentDirectory, function(err, data){
 
 };
 
-this.read = function(req, rep, next) {
+this.create = function(req, rep, next) {
+  console.log("content.controllet.create");
 
+  
+}
+
+this.read = function(req, rep, next) {
+  console.log("content.controller.read");
+  var contentModel = ContentModel.read(req.contentId,function(err, data) {
+			if (err) {
+				console.error(err);
+			} else {
+				console.log(data);
+				var content = data;
+				if (req.query.json=== "true"){
+				  console.log("json=true");
+				  rep.send(content);
+				}
+				else if(content['type']=== "img"){				  
+				  console.log(content['src']);
+				  rep.send(content['src']);
+				}
+				else {
+				  console.log("Redirect");
+				  rep.redirect(content['src']);
+				}
+				
+			}
+  });
 };
 
 /*

@@ -35,7 +35,6 @@ ContentModel.create = function (contentModel, cb){
      cb(">>> Error in ContentModel.create: id is undefined or null or id not UUID");
   }
   else {
-    console.log("TEST");
     var filePath = CONFIG.contentDirectory+'/'+contentModel.fileName;
     var metaData = CONFIG.contentDirectory+'/'+contentModel.id+".meta.json";
     fs.writeFileSync(filePath,contentModel.data);

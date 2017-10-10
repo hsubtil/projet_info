@@ -1,5 +1,5 @@
 Problèmes possibles :
 
 NPM :
-	Si err sur mutler : npm install mutler
+	Si err sur mutler : npm install multer
 	Si err when starting : npm update
