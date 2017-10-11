@@ -9,37 +9,43 @@ class VisualonlyContent extends Component {
       let render_visual;
       switch(this.props.type){
         case "img":
-
             render_visual=(
-                <img 
-                    className='imgCard' 
-                    src={this.props.src}  
-                />
+                    <img 
+                        className='imgCard' 
+                        src={this.props.src}  
+                    />
                 );
         break;
 
         case "img_url" :
         render_visual=(
-                <img 
-                    className='imgCard' 
+                    <iframe 
                     src={this.props.src}  
-                />
+                         width="100%" 
+                         height="100%"
+                         allowFullScreen
+                    />
+
                 );
         break;
 
         case "video":
               render_visual=(
-              <object  width="100%" height="100%"
-                        data={this.props.src}>
-                </object>
+                    <object  width="100%" height="100%"
+                            data={this.props.src}>
+                    </object>
+
                 );
         break;
+              
 
         case "web":
         render_visual=(
-                <url 
-                    className='imgCard' 
+                <iframe 
                     src={this.props.src}  
+                     width="100%" 
+                     height="100%"
+                     allowFullScreen
                 />
                 );
         break;

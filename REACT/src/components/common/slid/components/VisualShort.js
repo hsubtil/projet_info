@@ -6,11 +6,12 @@ class VisualShort extends Component {
         super(props);        
     }
   
-  render() {      
+  render() {   
+  
     return (
         <div className ="SlideShort">
-            <h5>{this.props.title}</h5>
-            <p>{this.props.txt}</p>
+            <h5>Title : {this.props.title}</h5>
+            <p> Text : {this.props.txt}</p>
             <Content 
                 src ={this.props.src} 
                 type ={this.props.type} 
