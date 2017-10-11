@@ -26,7 +26,8 @@ export default class EditMetaSlid extends React.Component{
 					 type="text"
 					 className="form-control"
 					 id="currentSlideText"
-					 onChange={this.props.handleChangeTxt} value={this.props.txt}>
+					 onChange={this.props.handleChangeTxt} 
+					 value={this.props.txt}>
 			 	</textarea>
 			  <Content 
                 src ={this.props.src} 

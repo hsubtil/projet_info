@@ -11,14 +11,14 @@ class BrowseContentPanel extends Component {
 
     getAllContent(){
     	let array_render_content=[];
-    	console.log(Object.keys(this.props.contentMapList));
-    	for (var i=1 ;i<Object.keys(this.props.contentMapList).length;i++){
-    		
+
+    	for (var i=0 ;i<Object.keys(this.props.contentMapList).length;i++){
+    		var key = Object.keys(this.props.contentMapList)[i];
     		array_render_content.push(
-    			<Content id = {this.props.contentMapList[i]['id'] }
-    			src ={this.props.contentMapList[i]['src']} 
-    			type ={this.props.contentMapList[i]['type']} 
-    			title ={this.props.contentMapList[i]['title'] }
+    			<Content id = {this.props.contentMapList[key]['id'] }
+    			src ={this.props.contentMapList[key]['src']} 
+    			type ={this.props.contentMapList[key]['type']} 
+    			title ={this.props.contentMapList[key]['title'] }
     			onlyContent = "false"/>
     		);
 
@@ -40,3 +40,5 @@ class BrowseContentPanel extends Component {
 
 
 export default BrowseContentPanel;
+
+

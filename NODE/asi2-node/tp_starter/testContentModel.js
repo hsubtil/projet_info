@@ -1,7 +1,7 @@
 'use strict';
-
 var CONFIG = require("./config.json");
 process.env.CONFIG = JSON.stringify(CONFIG);
+
 
 var utils = require("./app/utils/utils.js");
 var ContentModel = require("./app/models/content.model.js");
