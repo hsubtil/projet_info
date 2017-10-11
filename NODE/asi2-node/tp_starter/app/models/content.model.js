@@ -1,6 +1,6 @@
 'use strict';
-var CONFIG = require("../../config.json");
-process.env.CONFIG = JSON.stringify(CONFIG);
+var CONFIG = JSON.parse(process.env.CONFIG);
+
 var utils = require("../utils/utils.js");
 
 var fs = require("fs");
@@ -8,11 +8,12 @@ var fs = require("fs");
 module.exports = ContentModel;
 
 function ContentModel (content) {
-   this.id = 0;
-   this.type = "";
-   this.title = "";
-   this.src="";
-   this.fileName = "";
+   this.id =(content && content.id) ? content.id : null;
+   this.type = (content && content.type) ? content.type : null;
+   this.title = (content && content.title) ? content.title : null;
+   this.src=(content && content.src) ? content.src : null;
+   this.fileName = (content && content.fileName) ? content.fileName : null;
+
    var data;
 
     this.setData = function(data) {
@@ -27,8 +28,8 @@ function ContentModel (content) {
 ContentModel.create = function (contentModel, cb){
   console.log("ContentModel.create");
   var testUUID = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(contentModel.id);
-  if(typeof contentModel.fileName === "undefined" ||  contentModel.fileName === null){
-      cb(">>> Error in ContentModel.create: fileName is undefined or null");
+  if(!contentModel.fileName){
+      cb(new Error(">>> Error in ContentModel.create: fileName is undefined or null"));
   }
   else if(typeof contentModel.id === "undefined" ||  contentModel.id === null || !testUUID)
   {

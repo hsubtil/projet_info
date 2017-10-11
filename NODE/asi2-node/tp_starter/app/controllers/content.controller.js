@@ -16,6 +16,7 @@ var final_json = {} // empty Object
 fs.readdir(CONFIG.contentDirectory, function(err, data){
 	if (!!err) {
 				console.log(err);
+				rep.status(500).end(err.message);
 				return err;
 	}
 		for (var i in data) {
@@ -31,7 +32,7 @@ fs.readdir(CONFIG.contentDirectory, function(err, data){
 				final_json[content['id']] = contentModel ;
 			}
 		}
-	rep.send(final_json);
+	rep.end(final_json);
 
 	//console.log(final_json);
 	})				
@@ -46,15 +47,17 @@ this.create = function(req, rep, next) {
   console.log(req.file.mimetype); // Mime type of the file
   var contentModel = new ContentModel();
   contentModel['id']=utils.generateUUID();
-  contentModel['src']=req.file.path;
-  contentModel['typ']=req.file.mimetype;
+  //contentModel['src']=req.file.path;
+  //contentModel['typ']=req.file.mimetype;
+  contentModel['typ']=req.type;
+  contentModel['src']=req.src;
   contentModel['fileName']=req.file.originalname;
   var content = ContentModel.create(contentModel, function(err){
       if(err){
-	console.log(err);
+			console.log(err);
       }
       else{
-	rep.send("Done"); 
+      	rep.send(contentModel);
       }
   });	 
 };
@@ -73,7 +76,7 @@ this.read = function(req, rep, next) {
 				}
 				else if(content['type']=== "img"){				  
 				  console.log(content['src']);
-				  rep.send(content['src']);
+				  rep.sendFile(utils.getDataFilePath(content['fileName']));
 				}
 				else {
 				  console.log("Redirect");
