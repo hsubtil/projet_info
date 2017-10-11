@@ -7,7 +7,7 @@ var http = require("http");
 var express = require("express");
 var path = require("path");
 
-var multer = require("multer");
+//var multer = require("multer");
 
 
 var defaultRoute = require("./app/routes/default.route.js");
@@ -36,7 +36,7 @@ app.use("/index", express.static(path.join(__dirname, "public"))); // Ajoute une
 app.use(defaultRoute);
 app.use(contentRoute);
 
-app.use(multer);
+//app.use(multer);
 
 
 
