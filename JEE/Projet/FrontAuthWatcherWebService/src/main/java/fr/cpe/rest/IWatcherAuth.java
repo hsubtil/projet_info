@@ -10,12 +10,11 @@ import common.model.User;
 @Path ("/WatcherAuth")
 public interface IWatcherAuth {
 	
-	//TODO create object containing login and password and send it directly in getUser
 	@POST
 	@Consumes("application/json")
 	@Produces("application/json")
 	@Path("/")
-	String getUser (User user);
+	String getUser (User user); // String User user
 	
 
 }

@@ -17,6 +17,10 @@ public class User {
 	@NotNull
 	private String password;
 	
+	
+	private boolean validAuth;
+	
+	private String role;
 
 	public String getLogin() {
 		return login;
@@ -29,14 +33,28 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
-
+	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+
+	public void setValidAuth(boolean validAuth) {
+		this.validAuth = validAuth;
+	}
+	
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	@Override
 	public String toString() {
 		return "User [login=" + login + ", password=" + password + "]";
+	}
+	
+	public String toJSON() {
+		return "{\"login\":\"" + login + "\", \"validAuth\":\"" + validAuth + "\", \"role\":\"" + role + "\"}";
 	}
 
 }

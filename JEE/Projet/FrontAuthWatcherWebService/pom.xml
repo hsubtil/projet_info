@@ -40,7 +40,14 @@
    </licenses>
 
    <dependencies>
-
+	
+	  <!-- Import the EJB API, we use provided scope as the API is included in JBoss WildFly -->
+      <dependency>
+          <groupId>org.jboss.spec.javax.ejb</groupId>
+          <artifactId>jboss-ejb-api_3.2_spec</artifactId>
+          <scope>provided</scope>
+      </dependency>
+	
       <!-- Dependency on the EJB module so we can use it's services if needed -->
       <dependency>
          <groupId>fr.cpe</groupId>

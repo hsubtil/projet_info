@@ -1,5 +1,7 @@
 package common.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +11,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="users")
-public class UserModel {
+public class UserModel implements Serializable{
 	
 	
 	@Id
@@ -34,6 +36,11 @@ public class UserModel {
 	@Column (name="role")
 	private String role;
 
+	
+	public UserModel(){
+		super();
+	}
+	
 	public int getId() {
 		return id;
 	}
