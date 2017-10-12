@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @Table(name="users")
 public class UserModel implements Serializable{
 	
-	
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue
 	@Column(name="id")
@@ -30,11 +30,11 @@ public class UserModel implements Serializable{
 	@Column (name="last_name")
 	private String lastName;
 	
-	@Column (name="surname")
-	private String surName;
+	@Column (name="first_name")
+	private String firstName;
 	
 	@Column (name="role")
-	private String role;
+	private Role role;
 
 	
 	public UserModel(){
@@ -73,26 +73,26 @@ public class UserModel implements Serializable{
 		this.lastName = lastName;
 	}
 
-	public String getSurName() {
-		return surName;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setSurName(String surName) {
-		this.surName = surName;
+	public void setSurName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getRole() {
+	public Role getRole() {
 		return role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(Role role) {
 		this.role = role;
 	}
 	
 	@Override
 	public String toString() {
 		return "UserModel [id=" + id + ", login=" + login + ", password=" + password + ", lastName=" + lastName
-				+ ", surName=" + surName + ", role=" + role + "]";
+				+ ", surName=" + firstName + ", role=" + role + "]";
 	}
 
 

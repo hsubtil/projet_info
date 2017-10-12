@@ -1,5 +1,7 @@
 package ejb;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -33,16 +35,23 @@ public class MessageReceiverSync implements MessageReceiverSyncLocal {
 		Message message = consumer.receive(3000);
 		UserModel userModel = new UserModel ();
 		try{
-			System.out.println(">>> receiveMessage() - " + message.toString());
-			if (TextMessage.class.isInstance(message))
+			
+			if (message instanceof TextMessage)
 			{
+				System.out.println("Queue: I received a TextMessage at " + new Date());			
 				TextMessage textMessage = (TextMessage)message;
-				String jsonMsg = textMessage.getText();
+				String textMsg = textMessage.getText();
+				System.out.println(">>> receiveMessage() - " + textMsg);
 			}
-			else if(ObjectMessage.class.isInstance(message))
+			else if(message instanceof ObjectMessage)
 			{
+				System.out.println("Queue: I received an ObjectMessage at " + new Date());
 				ObjectMessage objectMessage = (ObjectMessage) message;
 				userModel = (UserModel) objectMessage.getObject();
+				
+				System.out.println("User Details: ");
+				System.out.println("login:"+userModel.getLogin());
+				System.out.println("pwd:"+userModel.getPassword());
 			}	
 		} catch (JMSException e) {
 	        e.printStackTrace();
