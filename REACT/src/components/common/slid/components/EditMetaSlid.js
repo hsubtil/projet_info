@@ -18,7 +18,7 @@ export default class EditMetaSlid extends React.Component{
 					 className="form-control"
 					 id="currentSlideTitle"
 					 onChange={this.props.handleChangeTitle}
-					 value={this.props.title}
+					 value={this.props.slid.title}
 				 />
 			<label htmlFor="currentSlideText">Text</label>
 				 <textarea
@@ -27,11 +27,11 @@ export default class EditMetaSlid extends React.Component{
 					 className="form-control"
 					 id="currentSlideText"
 					 onChange={this.props.handleChangeTxt} 
-					 value={this.props.txt}>
+					 value={this.props.slid.txt}>
 			 	</textarea>
 			  <Content 
-                src ={this.props.src} 
-                type ={this.props.type} 
+                contentMap = {this.props.contentMap} 
+                content_id = {this.props.slid.content_id}
                 onlyContent = "true"
             /> 
 		 </div>

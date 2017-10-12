@@ -19,11 +19,10 @@ class VisualonlyContent extends Component {
 
         case "img_url" :
         render_visual=(
-                    <iframe 
-                    src={this.props.src}  
-                         width="100%" 
-                         height="100%"
-                         allowFullScreen
+                    <img 
+                        className='imgCard'
+                        width="100%"  
+                        src={this.props.src}  
                     />
 
                 );

@@ -7,14 +7,14 @@ class VisualShort extends Component {
     }
   
   render() {   
-  
+ 
     return (
         <div className ="SlideShort">
-            <h5>Title : {this.props.title}</h5>
-            <p> Text : {this.props.txt}</p>
+            <h5>Title : {this.props.slid.title}</h5>
+            <p> Text : {this.props.slid.txt}</p>
             <Content 
-                src ={this.props.src} 
-                type ={this.props.type} 
+                contentMap = {this.props.contentMap}
+                content_id = {this.props.slid.content_id}
                 onlyContent = "true"
             /> 
         </div>

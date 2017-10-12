@@ -7,17 +7,40 @@ class Content extends Component {
     constructor(props) {
         super(props);
 
+    this.getContentById = this.getContentById.bind(this);
     }   
+
+     getContentById (){
+
+    var cont = {};
+      for (var i=1 ;i<Object.keys(this.props.contentMap).length;i++){
+               if(this.props.contentMap[i]["id"] == this.props.content_id)
+               {
+                    cont = {
+                        id : this.props.contentMap[i]["id"],
+                        src : this.props.contentMap[i]["src"],
+                        type : this.props.contentMap[i]["type"],
+                        title : this.props.contentMap[i]["title"],
+                    };
+                   
+               }
+      }
+
+      return cont;
+
+    }
   //render function use to update the virtual dom
   render() {
     let finalVisual;
+    var cont = this.getContentById();
+
     switch (this.props.onlyContent){
         case "true" : 
-            finalVisual = (<VisualonlyContent type = {this.props.type} src = {this.props.src} /> );
+            finalVisual = (<VisualonlyContent type = {cont.type} src = {cont.src} /> );
         break;
 
         case "false" : 
-           finalVisual =  (<Visualfull id={this.props.id} src={this.props.src} type={this.props.type} title={this.props.title} />);
+           finalVisual =  (<Visualfull id={cont.id} src={cont.src} type={cont.type} title={cont.title} />);
         break;
     }
     return (

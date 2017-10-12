@@ -12,14 +12,14 @@ class BrowseContentPanel extends Component {
     getAllContent(){
     	let array_render_content=[];
 
-    	for (var i=0 ;i<Object.keys(this.props.contentMapList).length;i++){
-    		var key = Object.keys(this.props.contentMapList)[i];
+    	for (var i=0 ;i<Object.keys(this.props.contentMap).length;i++){
+    		var key = Object.keys(this.props.contentMap)[i];
     		array_render_content.push(
-    			<Content id = {this.props.contentMapList[key]['id'] }
-    			src ={this.props.contentMapList[key]['src']} 
-    			type ={this.props.contentMapList[key]['type']} 
-    			title ={this.props.contentMapList[key]['title'] }
-    			onlyContent = "false"/>
+    			<Content 
+             contentMap = {this.props.contentMap}
+             content_id = {this.props.contentMap[key]['id']}
+    			   onlyContent = "false"
+           />
     		);
 
   		}
@@ -29,10 +29,10 @@ class BrowseContentPanel extends Component {
   //render function use to update the virtual dom
   render() {
 
-  		const contentMapList = this.getAllContent();
+  		const contentMap = this.getAllContent();
   		return (
   			<div>
-  				{contentMapList}
+  				{contentMap}
   			</div>	
   			);
   	}
