@@ -23,7 +23,6 @@ this.listen = function (server){
 	  	console.log('io.controller.data_comm');
 	  	socket_map[id]=socket;
 	  	console.log("New watcher : "+id);
-  	//console.log(socket_map);
 	  });
 
  	socket.on('slidEvent',function(json_object){
@@ -33,16 +32,13 @@ this.listen = function (server){
 	  		console.log("CMD is pause");
 	  	}
 	  	else{
-	  		console.log(json_object['CMD']);
 	  		ContentModel.read(json_object['PRES_ID'],function(err,content){
 	  			if(!!err){
 	  				console.log(err);
                 	return err;
 	  			}
-	  			console.log("lAAAA");
 	  			console.log(socket_map);
 	  			for (var element in socket_map){
-	  				//console.log(socket_map[element]);
 	  				socket_map[element].emit('currentSlidEvent',content);
 	  			}
 	  			
@@ -51,10 +47,10 @@ this.listen = function (server){
 	  });
 
  	socket.on('disconnect', function() {
-      console.log('Got disconnect!');
-      console.log(socket);
-      console.log(socket.id);
-      delete socket_map[socket.id];
+	  console.log('Got disconnect!');
+	  console.log(socket);
+	  console.log(socket.id);
+	  delete socket_map[socket.id];
       
    	});
  	socket.emit('connection');   
