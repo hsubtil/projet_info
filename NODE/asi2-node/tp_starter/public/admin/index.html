@@ -1,10 +1,34 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Test page</title>
-  </head>
-  <body>
-  Cette page est une
-  page toute simple dans admin. Juste pour essayer.
-  </body>
+    <head>
+        <meta charset="utf-8" />
+        <title>Admin Socket.io</title>
+    </head>
+ 
+    <body>
+        <h1>Admin Page</h1>
+        <input type="button" value="START" onclick="javascript:sendSlidStartEvent()"/>
+        
+
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script>
+        var socket = io.connect('http://localhost:1337');
+        socket.on('connection', function(message) {
+          socket.emit('data_comm',socket.id)
+        })
+
+        function sendSlidStartEvent(){
+            var json_DATA = {"CMD":"START","PRES_ID":"62cf58dd-ecb1-495a-899c-b7c633fa1df7"};
+            socket.emit('slidEvent',json_DATA);
+        }
+        function sendSlidNextEvent(){
+            var json_DATA = {"CMD":"START","PRES_ID":"62cf58dd-ecb1-495a-899c-b7c633fa1df7"};
+            socket.emit('slidEvent',json_DATA);
+        }
+        /*
+                        var json = {"CMD":'START',"PRES_ID":'1869'};
+                alert("Envoi JSON "+JSON.parse(json));
+                socket.emit('slidEvent',JSON.parse(json)*/
+        </script>
+    </body>
 </html>
