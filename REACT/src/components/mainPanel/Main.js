@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import globalReducer from '../../reducers';
 
+import {updateContentMap,updatePresentation} from '../../actions';
 
 const store = createStore(globalReducer);
 
@@ -36,13 +37,14 @@ export default class Main extends React.Component{
             slidObject: {},
             pres : presTmp,
         };
-		this.handleSlidChange=this.handleSlidChange.bind(this);        
+		this.handleSlidChange=this.handleSlidChange.bind(this);   
+		store.dispatch(updateContentMap(contentMapTmp)); 
+		store.dispatch(updatePresentation(presTmp));    
  	}
 
 
 handleSlidChange(slid){
 	this.setState({slidObject:slid});
-	console.log(this.state.slidObject);
 
 	return;
 }
@@ -50,12 +52,13 @@ handleSlidChange(slid){
 
 
  render() {
- 		var initSlid = {
-            "id": "1",
-            "title": "A",
-            "txt": "some txt here",
-            "content_id":"1"
+ 		const initSlid = {
+            id: "1",
+            title: "A",
+            txt: "some txt here",
+            content_id:"1"
         };
+
 	 return (
 	 	<Provider store={store} >
 		 <div className='container-fluid height-100'>
@@ -64,10 +67,10 @@ handleSlidChange(slid){
 				 	<Presentation pres = {this.state.pres} contentMap = {this.state.contentMap}/>	
 				  </div>
 				<div className='col-md-6 col-lg-6 height-100'>
-					<EditSlidPanel slid = {initSlid} contentMap = {this.state.contentMap}/>
+					<EditSlidPanel selected_slid = {initSlid} contentMap = {this.state.contentMap}/>
 				</div>
 				<div className='col-md-3 col-lg-3 height-100'>
-					<BrowseContentPanel contentMapList = {this.state.contentMap} />
+					<BrowseContentPanel contentMap = {this.state.contentMap} />
 				</div>
 			 </div>
 		 </div>

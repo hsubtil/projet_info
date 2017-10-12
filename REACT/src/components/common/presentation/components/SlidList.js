@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Slid from '../../slid/containers/Slid'
+import {connect } from 'react-redux';
+
 class SlidList extends Component {
 
     //class constructor whith given properties
@@ -18,6 +20,7 @@ class SlidList extends Component {
                 id : this.props.slidArray[i]['id'], 
                 title :this.props.slidArray[i]['title'], 
                 txt :this.props.slidArray[i]['txt'],
+                content_id :this.props.slidArray[i]['content_id'],
                 
           }
         array_render_slid.push(
@@ -25,8 +28,7 @@ class SlidList extends Component {
                 key={slid.id}
                 slid = {slid}
                 displayMode = "SHORT"
-                contentMapList = {this.props.contentMap}
-                content = {this.props.slidArray[i]['content_id']}
+                contentMap = {this.props.contentMap}
               />
     		);
 
@@ -48,7 +50,12 @@ class SlidList extends Component {
   	}
 }   
 
+const mapStateToProps = (state, ownProps) => {
+          return {
+          selected_slid: state.selectedReducer.slid,
 
-export default SlidList;
+        } };
+
+export default connect (mapStateToProps) (SlidList);
 
 

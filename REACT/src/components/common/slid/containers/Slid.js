@@ -12,15 +12,14 @@ class Slid extends React.Component {
         super(props);
 
         this.state ={
-            id : this.props.id,
-            title : this.props.title,
-            txt : this.props.txt,
-            content : this.props.content,
+            id : this.props.slid.id,
+            title : this.props.slid.title,
+            txt : this.props.slid.txt,
+            content_id : this.props.slid.content_id,
             contentMap : this.props.contentMap,
             displayMode : this.props.displayMode,
         };
 
-    this.getContentById = this.getContentById.bind(this);
     this.handleChangeTitle= this.handleChangeTitle.bind(this); 
     this.handleChangeTxt = this.handleChangeTxt.bind(this);  
     this.updateSelectedSlid=this.updateSelectedSlid.bind(this);
@@ -29,61 +28,36 @@ class Slid extends React.Component {
     
   updateSelectedSlid(){
       const tmpSlid={
-              id:this.props.id,
-              title:this.props.title,
-              txt:this.props.txt,
-              content_id:this.props.content
+              id:this.state.id,
+              title:this.state.title,
+              txt:this.state.txt,
+              content_id:this.state.content_id
             };
       this.props.dispatch(setSelectedSlid(tmpSlid));
   }
 
   handleChangeTitle (e) {
     this.setState({title:  e.target.value});
-    this.props.handleSlidChange({title:this.state.title,txt:this.state.txt,content:this.state.content});
     return;
   }
 
   handleChangeTxt (e) {
     this.setState({txt:  e.target.value});
-    this.props.handleSlidChange({title:this.state.title,txt:this.state.txt,content:this.state.content});
     return;
   }
-  getContentById (){
-
-    var src;
-    var type;
-
-    var cont = {
-      src : null,
-      type : null,
-    };
-      for (var i=1 ;i<Object.keys(this.props.contentMapList).length;i++){
-               if(this.props.contentMapList[i]["id"] == this.props.content)
-               {
-                   src = this.props.contentMapList[i]["src"];
-                   type = this.props.contentMapList[i]["type"];
-               }
-      }
-      cont = {src : src, type :type};
-
-      return cont;
-
-    }
 
 
   //render function use to update the virtual dom
   render() {
     let finalVisual; 
-    
-    var cont = this.getContentById();
 
     switch (this.state.displayMode){
         case "SHORT" :
-            finalVisual = (<VisualShort title = {this.props.slid.title} txt ={this.props.slid.txt} src = {cont.src} type ={cont.type}/>);
+            finalVisual = (<VisualShort slid = {this.props.slid} contentMap = {this.props.contentMap} content_id = {this.props.slid.content_id}/>);
         break;
 
         case "FULL_MNG":
-            finalVisual =(<EditMetaSlid handleChangeTitle = {this.handleChangeTitle} handleChangeTxt = {this.handleChangeTxt} title ={this.state.title} txt = {this.state.txt} src = {cont.src} type ={cont.type}/>);
+            finalVisual =(<EditMetaSlid handleChangeTitle = {this.handleChangeTitle} handleChangeTxt = {this.handleChangeTxt} slid = {this.props.slid} contentMap = {this.props.contentMap} content_id = {this.props.slid.content_id}/>);
         break;
 
         default : 

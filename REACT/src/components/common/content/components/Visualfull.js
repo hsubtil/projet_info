@@ -27,11 +27,10 @@ class Visualfull extends Component {
                 <div>
                     <h5>Title : {this.props.title}</h5>
                     <h6>ID : {this.props.id}</h6>
-                    <iframe 
-                    src={this.props.src}  
-                         width="100%" 
-                         height="100%"
-                         allowFullScreen
+                    <img 
+                        className='imgCard'
+                        width="100%"  
+                        src={this.props.src}  
                     />
                 </div>
 
