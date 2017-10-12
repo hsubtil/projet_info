@@ -20,7 +20,7 @@ public class User {
 	
 	private boolean validAuth;
 	
-	private String role;
+	private Role role;
 
 	public String getLogin() {
 		return login;
@@ -44,8 +44,8 @@ public class User {
 	}
 	
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setRole(Role role2) {
+		this.role = role2;
 	}
 
 	@Override

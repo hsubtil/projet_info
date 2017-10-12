@@ -1,6 +1,8 @@
 package ejb;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
@@ -11,7 +13,7 @@ import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
-import common.Role;
+import common.model.Role;
 import common.model.UserModel;
 import model.DataContainer;
 
@@ -30,14 +32,12 @@ import model.DataContainer;
 		
 public class AuthWatcherMsgDrivenEJB implements MessageListener {
 
-	private DataContainer dataContainer;
 	
 	@EJB MessageSenderQueueLocal sender;
 	
-    public AuthWatcherMsgDrivenEJB() {
-    	dataContainer=new DataContainer();
-    }
+	@EJB DataContainer dataContainer;
 	
+	@EJB UserDao userDao;
 	/**
      * @see MessageListener#onMessage(Message)
      */
@@ -57,13 +57,20 @@ public class AuthWatcherMsgDrivenEJB implements MessageListener {
     				
     				System.out.println("User Details: ");
     				System.out.println("login:"+user.getLogin());
-    				System.out.println("pwd:"+user.getPwd());
+    				System.out.println("pwd:"+user.getPassword());
+    				
+    				List <UserModel> listUser = userDao.getAllUser();  				
+    				System.out.println("listUser:"+ listUser.toString());
     				
     				Role currentTestRole=dataContainer.checkUser(user);
+    				System.out.println("Role:"+ currentTestRole);
     				if( Role.NONE==currentTestRole){
+    					System.out.println("Role NONe: "+ currentTestRole);
     					sender.sendMessage(user);
-    				}else{  					
-    					user.setRole(currentTestRole);
+    				}else{  		
+    					System.out.println("Role ELSE: "+ currentTestRole);
+    					user.setRole(currentTestRole); 
+    					System.out.println("user " + user.toString());
     					sender.sendMessage(user);
     				}
     			}
