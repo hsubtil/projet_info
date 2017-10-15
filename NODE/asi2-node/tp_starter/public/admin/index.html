@@ -2,17 +2,18 @@
 <html>
     <head>
         <meta charset="utf-8" />
-        <title>Admin Socket.io</title>
+        <title>Admin Page</title>
     </head>
  
     <body>
         <h1>Admin Page</h1>
         <input type="button" value="START" onclick="javascript:sendSlidStartEvent()"/>
         <input type="button" value="PAUSE" onclick="javascript:sendSlidPauseEvent()"/>
-        <input type="button" value="END" onclick="javascript:sendSlidStartEvent()"/>
+        <input type="button" value="END" onclick="javascript:sendSlidEndEvent()"/>
         <input type="button" value="BEGIN" onclick="javascript:sendSlidBeginEvent()"/>
-        <input type="button" value="PREV" onclick="javascript:sendSlidStartEvent()"/>
-        <input type="button" value="NEXT" onclick="javascript:sendSlidStartEvent()"/>
+        <input type="button" value="PREV" onclick="javascript:sendSlidPrevEvent()"/>
+        <input type="button" value="NEXT" onclick="javascript:sendSlidNextEvent()"/>
+        
         
 
         <script type="text/javascript" src="/socket.io/socket.io.js"></script>
@@ -46,10 +47,6 @@
             var json_DATA = {"CMD":"PAUSE"};
             socket.emit('slidEvent',json_DATA);
         }
-        /*
-                        var json = {"CMD":'START',"PRES_ID":'1869'};
-                alert("Envoi JSON "+JSON.parse(json));
-                socket.emit('slidEvent',JSON.parse(json)*/
         </script>
     </body>
 </html>

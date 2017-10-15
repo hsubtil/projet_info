@@ -1,53 +1,54 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8" />
     <title>Watch Page</title>
   </head>
   <body>
-  	<script type="text/javascript" src="/socket.io/socket.io.js"></script>
-  	<h1>Watch page</h1>
-  	<h2>Content</h2>
-  	<a id="content_id"></a>
-    <script>
-        var socket = io.connect('http://localhost:1337');
-        socket.on('connection', function(message) {
-          socket.emit('data_comm', socket.id)
-        })
-        socket.on('currentSlidEvent', function(content) {
-          alert('Slide Changed');
-	  var idParam = document.createElement('p');
-	  var typeParam = document.createElement('p');
-	  var titleParam = document.createElement('p');
-	  var fileName = document.createElement('p');
+      <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+      <h1>Watch page</h1>
+      <h2>Content</h2>
+      <a id="content_id"></a>
+      <src id="image" src="test"></src>
+      <iframe id="video" width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
+      
+      <script>
+	  var socket = io.connect('http://localhost:1337');
+	  socket.on('connection', function(message) {
+	    socket.emit('data_comm', socket.id)
+	  })
+	  socket.on('currentSlidEvent', function(content) {
+	    alert('Slide Changed');
+	    var idParam = document.createElement('p');
+	    var typeParam = document.createElement('p');
+	    var titleParam = document.createElement('p');
+	    var fileName = document.createElement('p');
 
-	  fileName.id = 'end';
-	  idParam.appendChild(document.createTextNode("id : " + content['id']));
-	  typeParam.appendChild(document.createTextNode("type : " + content['type']));
-	  titleParam.appendChild(document.createTextNode("title : " + content['title']));
-	  fileName.appendChild(document.createTextNode("fileName : " + content['fileName']));
+	    fileName.id = 'end';
+	    idParam.appendChild(document.createTextNode("id : " + content['id']));
+	    typeParam.appendChild(document.createTextNode("type : " + content['type']));
+	    titleParam.appendChild(document.createTextNode("title : " + content['title']));
+	    fileName.appendChild(document.createTextNode("fileName : " + content['fileName']));
 
-	  
-	  document.body.appendChild(idParam);
-	  document.body.appendChild(typeParam);
-	  document.body.appendChild(titleParam);
-	  document.body.appendChild(fileName);
-	  
-	  if(content['type']==="img"){
-	    alert("IN");
-	    var balise = '<img src='+content['src']+' alt="source">'
-	    var d1 = document.getElementById('end');
-	    d1.insertAdjacentHTML('afterend', balise);
-	  }
-	  else{
-	   var balise = '<iframe width="560" height="315" src='+content['src']+' allowfullscreen></iframe>';
-	   var balise2 = '<iframe width="560" height="315" src="https://www.youtube.com/embed/fAVCSU9vrvY" frameborder="0" allowfullscreen></iframe>';
-	   var d1 = document.getElementById('end');
-	   d1.insertAdjacentHTML('afterend', balise2);
-	    //iframe2
-	  }
-	  //document.body.appendChild(srcParam);
+	    
+	    document.body.appendChild(idParam);
+	    document.body.appendChild(typeParam);
+	    document.body.appendChild(titleParam);
+	    document.body.appendChild(fileName);
+	    
+	    if(content['type']==="img"){
+	      alert("IN");
+	      var imageElement = document.getElementById("image");
+	      imageElement.setAttribute('src', content['src']);
+	    }
+	    else{
+	    var videoElement = document.getElementById('video');
+	    videoElement.setAttribute('src', content['src']);
+	      //iframe2
+	    }
+	    //document.body.appendChild(srcParam);
 
-        })
-    </script>
+	  })
+      </script>
   </body>
 </html>
