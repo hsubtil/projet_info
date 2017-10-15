@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Content from '../../common/content/containers/Content'
+import style from './browseContentPanel.css';
+
 class BrowseContentPanel extends Component {
 
     //class constructor whith given properties
@@ -31,7 +33,7 @@ class BrowseContentPanel extends Component {
 
   		const contentMap = this.getAllContent();
   		return (
-  			<div>
+  			<div className={style.verticalScroll}>
   				{contentMap}
   			</div>	
   			);
