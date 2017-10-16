@@ -63,7 +63,7 @@ handleSlidChange(slid){
 	 	<Provider store={store} >
 		 <div className='container-fluid height-100'>
 			 <div className="row height-100">
-				 <div className='col-md-3 col-lg-3 height-100 vertical-scroll'>
+				 <div className='col-md-3 col-lg-3 height-100'>
 				 	<Presentation pres = {this.state.pres} contentMap = {this.state.contentMap}/>	
 				  </div>
 				<div className='col-md-6 col-lg-6 height-100'>
