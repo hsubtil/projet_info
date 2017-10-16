@@ -28,4 +28,8 @@
 
 .vertical-scroll{
     overflow-y: auto; 
+    border-radius: 10px;
+    border: 1px solid #DCDCDC;
+    padding:5px;
+    margin:5px;
 }

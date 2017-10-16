@@ -43,9 +43,9 @@ class SlidList extends Component {
   		const slidArray = this.getAllSlid();
 
   		return (
-  			<div>
-  				{slidArray}
-  			</div>	
+          <div>
+  				  {slidArray}
+          </div>
   			);
   	}
 }   

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Content from '../../common/content/containers/Content'
-import style from './browseContentPanel.css';
+import './browseContentPanel.css';
 
 class BrowseContentPanel extends Component {
 
@@ -33,7 +33,7 @@ class BrowseContentPanel extends Component {
 
   		const contentMap = this.getAllContent();
   		return (
-  			<div className={style.verticalScroll}>
+  			<div className='verticalScroll contentlist'>
   				{contentMap}
   			</div>	
   			);

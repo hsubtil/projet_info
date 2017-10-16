@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SlidList from '../components/SlidList';
 import EditMetaPres from '../components/EditMetaPres';
+import './presentation.css';
 
 
 class Presentation extends Component {
@@ -44,12 +45,10 @@ class Presentation extends Component {
 
     return (
     <div>
-    	<div>
-        	{editionForm}
-    	</div>
-    	<div>
-    		{slidsList}
-    	</div>
+           {editionForm}
+           <div className='vertical-scroll'>
+    	   {slidsList}
+           </div>
     </div>
     );
 }
