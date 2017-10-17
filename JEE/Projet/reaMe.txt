@@ -1,0 +1,38 @@
+TO Do:
+
+creer serveur wildfly : checker add and Remove
+
+dans serveur/admin:
+- checker base de données (bon nom et test connexion)
+- creer queue et topic
+
+dans squirrel sql creer bd ASI2:
+-creer table users et add users
+
+http://localhost:8080/FrontAuthWatcherWebService/rest/WatcherAuth
+{ "login":"toto", "password":"blague"}
+{ "login":"nabil", "password":"striker18"}
+{ "login":"bastien", "password":"kikou"}
+
+
+
+CREATE TABLE ASI2.users (
+id INT (11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+login VARCHAR (50) NOT NULL, 
+password VARCHAR(50) NOT NULL,
+first_name VARCHAR(50),
+last_name VARCHAR(50),
+role VARCHAR(50)
+)
+
+
+CREATE UNIQUE INDEX users_login_uindex ON ASI2.users (login)
+
+
+INSERT INTO ASI2.users (login, password, first_name, last_name, role)
+VALUES ('toto', 'blague', 'Toto','Asticot','NONE'),
+('nabil', 'striker18', 'Nabil','Fekir','ADMIN'),
+('bastien', 'kikou', 'Bastien','Pizza','USER')
+
+
+http://localhost:1337/login : pour checker lien node et JEE

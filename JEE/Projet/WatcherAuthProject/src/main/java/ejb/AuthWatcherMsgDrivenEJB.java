@@ -1,8 +1,6 @@
 package ejb;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.EJB;
@@ -13,7 +11,6 @@ import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
-import common.model.Role;
 import common.model.UserModel;
 import model.DataContainer;
 
@@ -59,20 +56,23 @@ public class AuthWatcherMsgDrivenEJB implements MessageListener {
     				System.out.println("login:"+user.getLogin());
     				System.out.println("pwd:"+user.getPassword());
     				
-    				List <UserModel> listUser = userDao.getAllUser();  				
-    				System.out.println("listUser:"+ listUser.toString());
+    				//List <UserModel> listUser = userDao.getAllUser();  				
+    				//System.out.println("listUser:"+ listUser);
     				
-    				Role currentTestRole=dataContainer.checkUser(user);
+    				//String currentTestRole = dataContainer.checkUser(user);
+    				
+    				String currentTestRole = userDao.checkUser(user);
+    				
     				System.out.println("Role:"+ currentTestRole);
-    				if( Role.NONE==currentTestRole){
-    					System.out.println("Role NONe: "+ currentTestRole);
-    					sender.sendMessage(user);
+    				if( "NONE".equals(currentTestRole)){
+    					System.out.println("Role NONE: "+ currentTestRole);
+    					
     				}else{  		
     					System.out.println("Role ELSE: "+ currentTestRole);
-    					user.setRole(currentTestRole); 
-    					System.out.println("user " + user.toString());
-    					sender.sendMessage(user);
     				}
+					System.out.println("user " + user.toString());
+    				user.setRole(currentTestRole);
+					sender.sendMessage(user);
     			}
     		} else {
     			System.out.println("Not valid message for this Queue MDB");

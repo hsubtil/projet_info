@@ -9,7 +9,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 
-import common.model.Role;
 
 @Singleton
 @Startup
@@ -28,15 +27,18 @@ public class DataContainer {
 		
 		user1.setLogin("toto");
 		user1.setPassword("blague");
-		user1.setRole(Role.NONE);
+		user1.setRole("NONE");
+		//user1.setRole(Role.NONE);
 		
 		user2.setLogin("nabil");
 		user2.setPassword("striker18");
-		user2.setRole(Role.ADMIN);
+		user2.setRole("ADMIN");
+		//user2.setRole(Role.ADMIN);
 		
 		user3.setLogin("bastien");
 		user3.setPassword("kikou");
-		user3.setRole(Role.USER);
+		user3.setRole("USER");
+		//user3.setRole(Role.USER);
 		
 		
 		this.listUser = new ArrayList<UserModel>();
@@ -45,9 +47,9 @@ public class DataContainer {
 		this.listUser.add(user3);
 	}
 	
-	public Role checkUser(UserModel user) {
+	public String checkUser(UserModel user) {
 		
-		Role role = Role.NONE;
+		String role = "NONE";
 		
 		for(UserModel currentUser : this.listUser ){
 			

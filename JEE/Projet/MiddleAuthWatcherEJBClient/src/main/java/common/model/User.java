@@ -1,10 +1,6 @@
 package common.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
 import javax.validation.constraints.NotNull;
 
 
@@ -20,10 +16,10 @@ public class User {
 	
 	private boolean validAuth;
 	
-	private Role role;
+	private String role;
 
 	public String getLogin() {
-		return login;
+		return this.login;
 	}
 
 	public void setLogin(String login) {
@@ -31,7 +27,7 @@ public class User {
 	}
 
 	public String getPassword() {
-		return password;
+		return this.password;
 	}
 	
 	public void setPassword(String password) {
@@ -43,14 +39,17 @@ public class User {
 		this.validAuth = validAuth;
 	}
 	
-
-	public void setRole(Role role2) {
+	public String getRole() {
+		return this.role;
+	}
+	
+	public void setRole(String role2) {
 		this.role = role2;
 	}
 
 	@Override
 	public String toString() {
-		return "User [login=" + login + ", password=" + password + "]";
+		return "User [login=" + login + ", password=" + password + ", role=" + role +  "]";
 	}
 	
 	public String toJSON() {
