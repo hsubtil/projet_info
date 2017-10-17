@@ -1,6 +1,7 @@
 // default.route.js
 var CONFIG = JSON.parse(process.env.CONFIG);
 
+var http = require('http');
 var express = require("express");
 var path = require("path");
 var fs = require("fs");
@@ -63,6 +64,41 @@ router.post('/savePres', function(request, response){
   console.log(request.body['id']+" created");
   response.send(request.body);    // echo du résultat
 });
+
+router.post('/login', function(request, response){
+	console.log('/login '+request.body['login']);
+	var data = JSON.parse({
+	  'login': request.body['login'],
+	  'password': request.body['pwd']
+	});
+
+	var options = {
+	  host: 'localhost',
+	  port: '8080',
+	  path: 'FrontAuthWatcherWebService/rest/WatcherAuth',
+	  method: 'POST',
+	  headers: {
+	    'Content-Type': 'application/json; charset=utf-8',
+	    'Content-Length': data.length
+	  }
+	};
+
+	var req = http.request(options, function(res) {
+	  var msg = '';
+	  res.setEncoding('utf8');
+	  
+	  res.on('data', function(chunk) {
+	    msg += chunk;
+	  });
+	  res.on('end', function() {
+	    console.log(JSON.parse(msg));
+	  });
+	});
+
+	req.write(data);
+	req.end();
+});
+
 
 /*
 // Routing using
