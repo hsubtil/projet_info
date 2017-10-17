@@ -5,7 +5,6 @@ import java.util.Date;
 import javax.annotation.Resource;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.jms.JMSConsumer;
 import javax.jms.JMSContext;
@@ -14,7 +13,6 @@ import javax.jms.Message;
 import javax.jms.ObjectMessage;
 import javax.jms.Queue;
 import javax.jms.TextMessage;
-import javax.jms.Topic;
 
 import common.model.UserModel;
 

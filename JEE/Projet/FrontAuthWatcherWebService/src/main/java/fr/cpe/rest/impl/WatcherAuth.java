@@ -13,12 +13,12 @@ import fr.cpe.rest.IWatcherAuth;
 
 public class WatcherAuth implements IWatcherAuth{
 	
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 	// private JmsSender sender;
 	@EJB
-	MessageSenderLocal sender;
+	MessageSenderLocal senderTopic;
 	@EJB
-	MessageReceiverSyncLocal receiver;
+	MessageReceiverSyncLocal receiverQueue;
 	
 	@EJB
 	MessageSenderQueueLocal senderQueue;
@@ -27,7 +27,7 @@ public class WatcherAuth implements IWatcherAuth{
 	
 	@Override
 	public String getUser(User user){ //User user
-		
+		System.out.println(user.toJSON());
 		
 		UserModel fullUser = new UserModel ();
 		fullUser.setLogin(user.getLogin());
@@ -35,24 +35,33 @@ public class WatcherAuth implements IWatcherAuth{
 		
 		//user.setRole("ADMIN");	
 		//user.setValidAuth(true);
+		
 		//TO DO create method which queries user's infos from userModel
 		//fullUser.setRole("ADMIN");//TO Do:  delete when method created
-		System.out.println(user.toJSON());
+		
+		
 		//senderQueue.sendMessage(fullUser);
 		
 		//send to topic
-		sender.sendMessage(fullUser);
+		senderTopic.sendMessage(fullUser);
 		System.out.println("fulUser " + fullUser.toString());
 		
 		//receive from queue
-		UserModel fullUser2 = receiver.receiveMessage();		
+		UserModel fullUser2 = receiverQueue.receiveMessage();		
 		System.out.println("fulUser2 " + fullUser2.toString());
 		
 		
-		String returnString = "{\"login\" : \"" + fullUser2.getLogin() + "\", \"validAuth\" : \"true\", \"role\" : \"" + fullUser2.getRole() + "\"}";
+		//String returnString = "{\"login\" : \"" + fullUser2.getLogin() + "\", \"validAuth\" : \"true\", \"role\" : \"" + fullUser2.getRole() + "\"}";
 		//TO Do user.to string => add validAuth and role to user class
 		user.setRole(fullUser2.getRole());
-		user.setValidAuth(true);
+		System.out.println("user " + user.toString());
+		if(user.getRole().equals("ADMIN") || user.getRole().equals("USER")){
+			user.setValidAuth(true);
+		}
+		else{
+			user.setValidAuth(false);
+		}
+		
 		return user.toJSON();
 	}
 	
