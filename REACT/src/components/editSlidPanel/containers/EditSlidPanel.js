@@ -13,18 +13,8 @@ class EditSlidPanel extends React.Component {
           selected_slid : this.props.selected_slid,
           contentMap : this.props.contentMap,
         };
-        this.updateSlid = this.updateSlid.bind(this);
       }
 
-      updateSlid(id,title,txt,content_id){
-         const tmpSlid={
-              id: id,
-              title: title,
-              txt: txt,
-              content_id:content_id
-            };
-        this.props.dispatch(updateSlid(tmpSlid));
-      }
       render () {
          return (
           <div className ='Slid' >

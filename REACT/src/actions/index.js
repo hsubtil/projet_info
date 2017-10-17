@@ -21,7 +21,7 @@ export const updatePresentation=(presentation)=>{
 
 export const updateSlid=(slid)=>{
 	return {
-		type: 'UPDATE_SLIDS',
+		type: 'UPDATE_SLID',
 		obj:slid
 	};
 }

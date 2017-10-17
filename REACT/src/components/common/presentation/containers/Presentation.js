@@ -46,8 +46,8 @@ class Presentation extends Component {
     return (
     <div>
            {editionForm}
-           <div className='vertical-scroll'>
-    	   {slidsList}
+           <div>
+    	       {slidsList}
            </div>
     </div>
     );

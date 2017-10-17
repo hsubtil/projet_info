@@ -56,7 +56,7 @@ handleSlidChange(slid){
             id: "1",
             title: "A",
             txt: "some txt here",
-            content_id:"1"
+            content_id:"1",
         };
 
 	 return (

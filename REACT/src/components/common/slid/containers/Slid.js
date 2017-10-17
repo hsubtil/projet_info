@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import VisualShort from '../components/VisualShort';
 import EditMetaSlid from '../components/EditMetaSlid';
 import { connect } from 'react-redux';
-import {setSelectedSlid } from '../../../../actions'
+import {setSelectedSlid, updateSlid } from '../../../../actions';
+
 import './slid.css'
 
 
@@ -13,10 +14,7 @@ class Slid extends React.Component {
         super(props);
 
         this.state ={
-            id : this.props.slid.id,
-            title : this.props.slid.title,
-            txt : this.props.slid.txt,
-            content_id : this.props.slid.content_id,
+            slid : this.props.slid,
             contentMap : this.props.contentMap,
             displayMode : this.props.displayMode,
         };
@@ -24,21 +22,27 @@ class Slid extends React.Component {
     this.handleChangeTitle= this.handleChangeTitle.bind(this); 
     this.handleChangeTxt = this.handleChangeTxt.bind(this);  
     this.updateSelectedSlid=this.updateSelectedSlid.bind(this);
+    this.updateSlid=this.updateSlid.bind(this);
 
     }   
     
   updateSelectedSlid(){
       const tmpSlid={
-              id:this.state.id,
-              title:this.state.title,
-              txt:this.state.txt,
-              content_id:this.state.content_id
+              id:this.state.slid.id,
+              title:this.state.slid.title,
+              txt:this.state.slid.txt,
+              content_id:this.state.slid.content_id
             };
       this.props.dispatch(setSelectedSlid(tmpSlid));
   }
+  updateSlid(id,title,txt,content_id){
+        
+        this.props.dispatch(updateSlid(this.props.slid));
+      }
 
   handleChangeTitle (e) {
     this.setState({title:  e.target.value});
+    this.updateSlid(this.props.slid.id,this.state.title,this.props.slid.txt,this.props.slid.content_id);
     return;
   }
 

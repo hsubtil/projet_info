@@ -13,14 +13,15 @@ class Content extends Component {
      getContentById (){
 
     var cont = {};
-      for (var i=1 ;i<Object.keys(this.props.contentMap).length;i++){
-               if(this.props.contentMap[i]["id"] == this.props.content_id)
+      for (var i=0 ;i<Object.keys(this.props.contentMap).length;i++){
+          var key = Object.keys(this.props.contentMap)[i];
+               if(this.props.contentMap[key]["id"] == this.props.content_id)
                {
                     cont = {
-                        id : this.props.contentMap[i]["id"],
-                        src : this.props.contentMap[i]["src"],
-                        type : this.props.contentMap[i]["type"],
-                        title : this.props.contentMap[i]["title"],
+                        id : this.props.contentMap[key]["id"],
+                        src : this.props.contentMap[key]["src"],
+                        type : this.props.contentMap[key]["type"],
+                        title : this.props.contentMap[key]["title"],
                     };
                    
                }
