@@ -27,14 +27,14 @@ public class UserModel implements Serializable{
 	@Column(name="password")
 	private String password;
 	
-	@Column (name="last_name")
-	private String lastName;
-	
 	@Column (name="first_name")
 	private String firstName;
 	
+	@Column (name="last_name")
+	private String lastName;
+	
 	@Column (name="role")
-	private Role role;
+	private String role;
 
 	
 	public UserModel(){
@@ -81,12 +81,12 @@ public class UserModel implements Serializable{
 		this.firstName = firstName;
 	}
 
-	public Role getRole() {
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRole(String role) {
+		this.role = role.toString();
 	}
 	
 	@Override
