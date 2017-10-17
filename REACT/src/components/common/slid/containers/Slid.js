@@ -3,6 +3,7 @@ import VisualShort from '../components/VisualShort';
 import EditMetaSlid from '../components/EditMetaSlid';
 import { connect } from 'react-redux';
 import {setSelectedSlid } from '../../../../actions'
+import './slid.css'
 
 
 class Slid extends React.Component {
@@ -67,7 +68,7 @@ class Slid extends React.Component {
 
     return (
 
-    <div className ="Slid" onClick={()=>this.updateSelectedSlid()} >
+    <div className ="Slid vertical-scroll" onClick={()=>this.updateSelectedSlid()} >
         {finalVisual}
     </div>
     );
