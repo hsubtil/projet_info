@@ -67,15 +67,14 @@ router.post('/savePres', function(request, response){
 
 router.post('/login', function(request, response){
 	console.log('/login '+request.body['login']);
-	var data = JSON.parse({
+	var data = JSON.stringify({
 	  'login': request.body['login'],
-	  'password': request.body['pwd']
+	  'password': request.body['password']
 	});
-
 	var options = {
 	  host: 'localhost',
 	  port: '8080',
-	  path: 'FrontAuthWatcherWebService/rest/WatcherAuth',
+	  path: '/FrontAuthWatcherWebService/rest/WatcherAuth',
 	  method: 'POST',
 	  headers: {
 	    'Content-Type': 'application/json; charset=utf-8',
@@ -91,12 +90,23 @@ router.post('/login', function(request, response){
 	    msg += chunk;
 	  });
 	  res.on('end', function() {
-	    console.log(JSON.parse(msg));
+	  	var reply = JSON.parse(msg);
+	    console.log(reply);
+	    if(reply['role'] === 'ADMIN'){
+	    	response.redirect("/admin");
+	    }
+	    else if (reply['role'] === 'USER'){
+	    	response.redirect("/watch");
+	    }
+	    else{
+	    	response.redirect("/");  // TODO Page erreur de connection
+	    }
 	  });
 	});
 
 	req.write(data);
 	req.end();
+
 });
 
 
