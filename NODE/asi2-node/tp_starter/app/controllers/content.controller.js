@@ -45,9 +45,6 @@ this.create = function(req, rep, next) {
     /*console.log(req.file.path); // The full path to the uploaded file
     console.log(req.file.originalname); // Name of the file on the user's computer
     console.log(req.file.mimetype); // Mime type of the file*/
-
-
-
     var contentModel = new ContentModel();
     console.log(req.body['type']);
     contentModel['id'] = utils.generateUUID();
@@ -59,8 +56,9 @@ this.create = function(req, rep, next) {
         fs.readFile(req.file.path, function(err, data) {
 
         	if (!!err) {
-        		// TODO EN MIEUX
-        		res.status(500).end();
+        		console.log(err);
+                rep.status(500).end(err.message);
+                return err;
         	}
 
         	contentModel.setData(data);

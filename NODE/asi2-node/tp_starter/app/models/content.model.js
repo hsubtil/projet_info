@@ -1,9 +1,10 @@
 'use strict';
 var CONFIG = JSON.parse(process.env.CONFIG);
 
-var utils = require("../utils/utils.js");
-
 var fs = require("fs");
+
+
+var utils = require("../utils/utils.js");
 
 module.exports = ContentModel;
 

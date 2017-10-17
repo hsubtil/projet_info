@@ -1,10 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Test page</title>
-  </head>
-  <body>
-  Cette page est une
-  page toute simple dans admin. Juste pour essayer.
-  </body>
+    <head>
+        <meta charset="utf-8" />
+        <title>Admin Page</title>
+    </head>
+ 
+    <body>
+        <h1>Admin Page</h1>
+        <input type="button" value="START" onclick="javascript:sendSlidStartEvent()"/>
+        <input type="button" value="PAUSE" onclick="javascript:sendSlidPauseEvent()"/>
+        <input type="button" value="END" onclick="javascript:sendSlidEndEvent()"/>
+        <input type="button" value="BEGIN" onclick="javascript:sendSlidBeginEvent()"/>
+        <input type="button" value="PREV" onclick="javascript:sendSlidPrevEvent()"/>
+        <input type="button" value="NEXT" onclick="javascript:sendSlidNextEvent()"/>
+        
+        
+
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script>
+        var socket = io.connect('http://localhost:1337');
+        socket.on('connection', function(message) {
+          socket.emit('data_comm',socket.id)
+        })
+
+        function sendSlidStartEvent(){
+            var json_DATA = {"CMD":"START","PRES_ID":"62cf58dd-ecb1-495a-899c-b7c633fa1df7"};
+            socket.emit('slidEvent',json_DATA);
+        }
+        function sendSlidEndEvent(){
+            var json_DATA = {"CMD":"END","PRES_ID":"62cf58dd-ecb1-495a-899c-b7c633fa1df7"};
+            socket.emit('slidEvent',json_DATA);
+        }
+        function sendSlidBeginEvent(){
+            var json_DATA = {"CMD":"BEGIN","PRES_ID":"fdc95b61-ca46-4ac5-9372-b847c630faaf"};  // WEB
+            socket.emit('slidEvent',json_DATA);
+        }
+        function sendSlidPrevEvent(){
+            var json_DATA = {"CMD":"PREV","PRES_ID":"62cf58dd-ecb1-495a-899c-b7c633fa1df7"};
+            socket.emit('slidEvent',json_DATA);
+        }
+        function sendSlidNextEvent(){
+            var json_DATA = {"CMD":"NEXT","PRES_ID":"62cf58dd-ecb1-495a-899c-b7c633fa1df7"};
+            socket.emit('slidEvent',json_DATA);
+        }
+        function sendSlidPauseEvent(){
+            var json_DATA = {"CMD":"PAUSE"};
+            socket.emit('slidEvent',json_DATA);
+        }
+        </script>
+    </body>
 </html>

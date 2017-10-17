@@ -30,7 +30,7 @@ server.listen(CONFIG.port, function (){
 });
 IOController.listen(server);
 app.use("/admin", express.static(path.join(__dirname, "public/admin"))); // Ajoute une redirection vers le dossier admin
-app.use("/index", express.static(path.join(__dirname, "public"))); // Ajoute une redirection vers le dossier admin
+app.use("/watch", express.static(path.join(__dirname, "public/watch"))); // Ajoute une redirection vers le dossier admin
 
 
 app.use(defaultRoute);
