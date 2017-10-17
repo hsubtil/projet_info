@@ -36,7 +36,7 @@ class Slid extends React.Component {
       this.props.dispatch(setSelectedSlid(tmpSlid));
   }
   updateSlid(id,title,txt,content_id){
-        
+        // @Pia : Param non utilisé. Normal ???
         this.props.dispatch(updateSlid(this.props.slid));
       }
 
