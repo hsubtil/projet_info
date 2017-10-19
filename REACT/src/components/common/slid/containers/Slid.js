@@ -61,6 +61,10 @@ class Slid extends React.Component {
     return;
   }
 
+  handleChangeContent (e) {
+    this.updateSlidValue(this.props.slid.id,this.props.slid.title,this.props.slid.txt,e.target.value);
+    return;
+  }
 
   //render function use to update the virtual dom
   render() {

@@ -37,7 +37,8 @@ class Presentation extends React.Component {
   render() {
     let editionForm; 
     let slidsList;
-    var newPres = JSON.stringify(this.props.pres);
+    var newPresString = JSON.stringify(this.props.pres);
+    var newPresentationJSON = JSON.parse(newPresString);
    
 
     editionForm =(<EditMetaPres handleChangeTitle = {this.handleChangeTitle} handleChangedescription = {this.handleChangedescription} title ={this.props.pres.title} description = {this.props.pres.description}/>);
@@ -45,12 +46,15 @@ class Presentation extends React.Component {
     slidsList = (<SlidList slidArray = {this.props.pres.slidArray} contentMap = {this.props.contentMap}/>);
 
     fetch('https://localhost:1337/savePres', {
+      
       method: 'POST',
+
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: {newPres}
+
+      body: JSON.stringify({newPresentationJSON})
     });
 
     return (

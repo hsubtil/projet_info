@@ -29,6 +29,7 @@ class EditMetaSlid extends React.Component{
 					 onChange={this.props.handleChangeTxt} 
 					 value={this.props.slid.txt}>
 			 	</textarea>
+			 	
 			  <Content 
                 contentMap = {this.props.contentMap} 
                 content_id = {this.props.slid.content_id}
