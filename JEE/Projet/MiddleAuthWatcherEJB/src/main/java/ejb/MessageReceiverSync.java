@@ -51,6 +51,7 @@ public class MessageReceiverSync implements MessageReceiverSyncLocal {
 				System.out.println("login:"+userModel.getLogin());
 				System.out.println("pwd:"+userModel.getPassword());
 			}	
+			//context.acknowledge();
 		} catch (JMSException e) {
 	        e.printStackTrace();
 	    }

@@ -46,8 +46,9 @@ public class WatcherAuth implements IWatcherAuth{
 		senderTopic.sendMessage(fullUser);
 		System.out.println("fulUser " + fullUser.toString());
 		
+		
 		//receive from queue
-		UserModel fullUser2 = receiverQueue.receiveMessage();		
+		UserModel fullUser2 = receiverQueue.receiveMessage();			
 		System.out.println("fulUser2 " + fullUser2.toString());
 		
 		

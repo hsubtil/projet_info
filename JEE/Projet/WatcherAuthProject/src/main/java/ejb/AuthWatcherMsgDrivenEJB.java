@@ -69,9 +69,9 @@ public class AuthWatcherMsgDrivenEJB implements MessageListener {
     					
     				}else{  		
     					System.out.println("Role ELSE: "+ currentTestRole);
-    				}
-					System.out.println("user " + user.toString());
+    				}					
     				user.setRole(currentTestRole);
+    				System.out.println("user send to queue" + user.toString());
 					sender.sendMessage(user);
     			}
     		} else {

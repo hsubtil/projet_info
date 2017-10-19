@@ -14,7 +14,7 @@ public interface IWatcherAuth {
 	@Consumes("application/json")
 	@Produces("application/json")
 	@Path("/")
-	String getUser (User user); // String User user
+	String getUser ( User user); // String User user
 	
 
 }

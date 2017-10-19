@@ -2,12 +2,13 @@ TO Do:
 
 creer serveur wildfly : checker add and Remove
 
-dans serveur/admin:
-- checker base de données (bon nom et test connexion)
+dans serveur/admin: (admin wildfly)
+- checker base de données (bon nom et test connexion), (root toortoor) jdbc:mysql://localhost:3306/ASI2
 - creer queue et topic
 
 dans squirrel sql creer bd ASI2:
 -creer table users et add users
+
 
 http://localhost:8080/FrontAuthWatcherWebService/rest/WatcherAuth
 { "login":"toto", "password":"blague"}
@@ -15,6 +16,7 @@ http://localhost:8080/FrontAuthWatcherWebService/rest/WatcherAuth
 { "login":"bastien", "password":"kikou"}
 
 
+clic droit, create database, ASI2
 
 CREATE TABLE ASI2.users (
 id INT (11) PRIMARY KEY NOT NULL AUTO_INCREMENT,

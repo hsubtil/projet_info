@@ -20,11 +20,11 @@ public class UserModel implements Serializable{
 	private int id;
 	
 	@NotNull
-	@Column(name="login")
+	@Column(name="login", nullable = false)
 	private String login;
 	
 	@NotNull
-	@Column(name="password")
+	@Column(name="password", nullable = false)
 	private String password;
 	
 	@Column (name="first_name")
