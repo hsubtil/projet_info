@@ -18,9 +18,20 @@ class Presentation extends React.Component {
 
     this.handleChangeTitle= this.handleChangeTitle.bind(this); 
     this.handleChangeDescription = this.handleChangeDescription.bind(this); 
+    this.savePresentation = this.savePresentation.bind(this);
 
     }   
 
+  savePresentation() {
+
+    fetch('http://localhost:1337/savePres', {
+          method: 'POST',
+          body: JSON.stringify(this.props.pres
+            )
+    });
+    return;
+
+  }
 
   handleChangeTitle (e) {
     this.setState({title:  e.target.value});
@@ -37,43 +48,29 @@ class Presentation extends React.Component {
   render() {
     let editionForm; 
     let slidsList;
-    var newPresString = JSON.stringify(this.props.pres);
-    var newPresentationJSON = JSON.parse(newPresString);
-   
 
     editionForm =(<EditMetaPres handleChangeTitle = {this.handleChangeTitle} handleChangedescription = {this.handleChangedescription} title ={this.props.pres.title} description = {this.props.pres.description}/>);
 
     slidsList = (<SlidList slidArray = {this.props.pres.slidArray} contentMap = {this.props.contentMap}/>);
 
-    fetch('https://localhost:1337/savePres', {
-      
-      method: 'POST',
-
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-
-      body: JSON.stringify({newPresentationJSON})
-    });
-
     return (
-    <div>
-           {editionForm}
-           <div>
-    	       {slidsList}
-           </div>
-    </div>
+        <div>
+            <div>
+                  <button onClick={()=>this.savePresentation()}>Save</button>
+            </div>
+            <div>
+                   {editionForm}
+                   <div>
+            	       {slidsList}
+                   </div>
+            </div>
+        </div>
     );
   }
 }
 
 
 const mapStateToProps = (state, ownProps) => {
-
-          console.log("Update Presentation");
-          console.log(state.updateModelReducer.presentation);
-          //TODO modifier en plus les fichiers JSON lors de la modification des slides et du contentMap
         return {
            contentMap : state.updateModelReducer.content_map,
            pres : state.updateModelReducer.presentation,
