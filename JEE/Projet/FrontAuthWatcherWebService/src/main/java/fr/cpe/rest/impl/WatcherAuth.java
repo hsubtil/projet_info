@@ -3,9 +3,10 @@ package fr.cpe.rest.impl;
 import java.util.logging.Logger;
 
 import javax.ejb.EJB;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response;
 
-import common.model.User;
-import common.model.UserModel;
+import common.dto.User;
 import ejb.MessageReceiverSyncLocal;
 import ejb.MessageSenderLocal;
 import ejb.MessageSenderQueueLocal;
@@ -26,43 +27,25 @@ public class WatcherAuth implements IWatcherAuth{
 	Logger logger= Logger.getLogger(WatcherAuth.class.getName());
 	
 	@Override
-	public String getUser(User user){ //User user
-		System.out.println(user.toJSON());
-		
-		UserModel fullUser = new UserModel ();
-		fullUser.setLogin(user.getLogin());
-		fullUser.setPassword(user.getPassword());
-		
-		//user.setRole("ADMIN");	
-		//user.setValidAuth(true);
-		
-		//TO DO create method which queries user's infos from userModel
-		//fullUser.setRole("ADMIN");//TO Do:  delete when method created
-		
-		
+	public User getUser(User user){ 
+		System.out.println("WS user param send to topic: " + user.toString());
+			
 		//senderQueue.sendMessage(fullUser);
 		
 		//send to topic
-		senderTopic.sendMessage(fullUser);
-		System.out.println("fulUser " + fullUser.toString());
-		
+		senderTopic.sendMessage(user);
+				
 		//receive from queue
-		UserModel fullUser2 = receiverQueue.receiveMessage();		
-		System.out.println("fulUser2 " + fullUser2.toString());
+		user = receiverQueue.receiveMessage();			
+		System.out.println("WS user from queue: " + user.toString());
 		
+		user.setValidAuth(user.getRole() != null);
 		
-		//String returnString = "{\"login\" : \"" + fullUser2.getLogin() + "\", \"validAuth\" : \"true\", \"role\" : \"" + fullUser2.getRole() + "\"}";
-		//TO Do user.to string => add validAuth and role to user class
-		user.setRole(fullUser2.getRole());
-		System.out.println("user " + user.toString());
-		if(user.getRole().equals("ADMIN") || user.getRole().equals("USER")){
-			user.setValidAuth(true);
-		}
-		else{
-			user.setValidAuth(false);
-		}
-		
-		return user.toJSON();
+
+		if (user == null) {
+			throw new WebApplicationException("User null", Response.Status.UNAUTHORIZED);
+		}		
+		return user;
 	}
 	
 

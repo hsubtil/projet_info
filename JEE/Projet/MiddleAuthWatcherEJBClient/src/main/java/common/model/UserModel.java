@@ -20,11 +20,11 @@ public class UserModel implements Serializable{
 	private int id;
 	
 	@NotNull
-	@Column(name="login")
+	@Column(name="login", nullable = false)
 	private String login;
 	
 	@NotNull
-	@Column(name="password")
+	@Column(name="password", nullable = false)
 	private String password;
 	
 	@Column (name="first_name")
@@ -87,6 +87,14 @@ public class UserModel implements Serializable{
 
 	public void setRole(String role) {
 		this.role = role.toString();
+	}
+	
+	public Role role() {
+		return Role.valueOf(role);
+	}
+
+	public void setRole(Role role) {
+		this.role = role.name();
 	}
 	
 	@Override

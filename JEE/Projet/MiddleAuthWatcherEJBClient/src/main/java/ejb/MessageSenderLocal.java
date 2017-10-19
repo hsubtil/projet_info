@@ -2,12 +2,12 @@ package ejb;
 
 import javax.ejb.Local;
 
-import common.model.UserModel;
+import common.dto.User;
 
 @Local
 public interface MessageSenderLocal {
 
 	public void sendMessage(String message);
 	
-	public void sendMessage(UserModel user);
+	public void sendMessage(User user);
 }

@@ -5,48 +5,39 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
+import common.dto.User;
+import common.model.Role;
 import common.model.UserModel;
 
 @Stateless
 public class UserDao {
 
-	private List <UserModel> listUser;
 	
 	@PersistenceContext EntityManager em;
 	public UserDao() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	@PostConstruct
-	public void init(){
-		listUser = getAllUser();
-	}
-
-	public List<UserModel> getAllUser(){
-		System.out.println("getAllUser BEGIN ");
-		List <UserModel> userList = em.createQuery("from UserModel").getResultList();
 		
-		//System.out.println(em.find(UserModel.class, 1));
+	public Role checkUser(User user) {
 		
-		System.out.println("userList " + userList);
-		System.out.println("getAllUser END ");
-		return userList;
-	}
-	
-	public String checkUser(UserModel user) {
+		UserModel userQuery;
 		
-		String role = "NONE";
-		
-		for(UserModel currentUser : this.listUser ){
-			
-			if(user.getLogin().equals( currentUser.getLogin() ) 
-				&& user.getPassword().equals( currentUser.getPassword() ) ){
+	try{userQuery = (UserModel) em.createQuery("from UserModel u where u.login = :login "
+				+ " AND u.password = :password")
+				.setParameter("login",  user.getLogin())
+				.setParameter("password", user.getPassword())
+				.getSingleResult();
 				
-				role = currentUser.getRole();
-			}
-		}	
-		return role;
+	}catch(NoResultException e){
+		System.out.println("NoResultException: User does not exist: ");
+		System.out.println("login:"+user.getLogin());
+		System.out.println("pwd:"+user.getPassword());
+		return null;
+	}
+			
+		return userQuery.role();
 	}
 }

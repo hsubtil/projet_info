@@ -8,6 +8,7 @@ import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
 import javax.jms.Queue;
 
+import common.dto.User;
 import common.model.UserModel;
 
 /**
@@ -26,7 +27,7 @@ public class MessageSenderQueue implements MessageSenderQueueLocal {
 	public void sendMessage(String message) {
 		context.createProducer().send(queue, message);
 		}
-	public void sendMessage(UserModel user) {
+	public void sendMessage(User user) {
 		try {
 			ObjectMessage message = context.createObjectMessage();
 			message.setObject(user);

@@ -11,6 +11,8 @@ import javax.jms.MessageListener;
 import javax.jms.ObjectMessage;
 import javax.jms.TextMessage;
 
+import common.dto.User;
+import common.model.Role;
 import common.model.UserModel;
 import model.DataContainer;
 
@@ -49,29 +51,25 @@ public class AuthWatcherMsgDrivenEJB implements MessageListener {
     			System.out.println("Topic: I received an ObjectMessage at " + new Date());
     			ObjectMessage msg = (ObjectMessage) message;
     			
-    			if( msg.getObject() instanceof UserModel){
-    				UserModel user=(UserModel)msg.getObject();
+    			if( msg.getObject() instanceof User){
+    				User user=(User)msg.getObject();
     				
     				System.out.println("User Details: ");
     				System.out.println("login:"+user.getLogin());
     				System.out.println("pwd:"+user.getPassword());
-    				
-    				//List <UserModel> listUser = userDao.getAllUser();  				
-    				//System.out.println("listUser:"+ listUser);
-    				
-    				//String currentTestRole = dataContainer.checkUser(user);
-    				
-    				String currentTestRole = userDao.checkUser(user);
+    				   				
+    				Role currentTestRole = userDao.checkUser(user);
     				
     				System.out.println("Role:"+ currentTestRole);
-    				if( "NONE".equals(currentTestRole)){
-    					System.out.println("Role NONE: "+ currentTestRole);
-    					
-    				}else{  		
-    					System.out.println("Role ELSE: "+ currentTestRole);
+    				if (currentTestRole == null) {
+    					System.out.println("Auth Failed");
+    				}   
+    				else
+    				{
+    					user.setRole(currentTestRole);
     				}
-					System.out.println("user " + user.toString());
-    				user.setRole(currentTestRole);
+    				
+    				System.out.println("user send to queue" + user.toString());
 					sender.sendMessage(user);
     			}
     		} else {

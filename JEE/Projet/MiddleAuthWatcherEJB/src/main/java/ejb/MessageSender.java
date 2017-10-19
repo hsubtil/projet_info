@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.jms.JMSContext;
 import javax.jms.Topic;
 
+import common.dto.User;
 import common.model.UserModel;
 
 /**
@@ -24,7 +25,7 @@ public class MessageSender implements MessageSenderLocal {
 		context.createProducer().send(topic, message);
 	}
 	
-	public void sendMessage(UserModel user) {
+	public void sendMessage(User user) {
 		context.createProducer().send(topic, user);
 	}
 

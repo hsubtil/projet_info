@@ -90,17 +90,29 @@ router.post('/login', function(request, response){
 	    msg += chunk;
 	  });
 	  res.on('end', function() {
-	  	var reply = JSON.parse(msg);
-	    console.log(reply);
-	    if(reply['role'] === 'ADMIN'){
-	    	response.redirect("/admin");
-	    }
-	    else if (reply['role'] === 'USER'){
-	    	response.redirect("/watch");
+	  	console.log(msg);
+	  	if(msg === "")
+	    {
+	    	console.log("Empty reply from JEE webservice");	  
+	    	response.redirect("/");  // TODO Page erreur de connection: erreur du webservice
 	    }
 	    else{
-	    	response.redirect("/");  // TODO Page erreur de connection
+		    var reply = JSON.parse(msg);
+	  		if(reply['validAuth'] === false){
+	  			console.log("validAuth is false");
+		    	response.redirect("/");  // TODO Page erreur de connection avec login pwd incorrecte
+		    }
+		    else{
+		 
+		  		if(reply['role'] === 'ADMIN'){
+			    	response.redirect("/admin");
+			    }
+			    else{
+			    	response.redirect("/watch");			    
+			    }
+			}
 	    }
+
 	  });
 	});
 
