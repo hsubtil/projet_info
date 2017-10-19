@@ -89,6 +89,14 @@ public class UserModel implements Serializable{
 		this.role = role.toString();
 	}
 	
+	public Role role() {
+		return Role.valueOf(role);
+	}
+
+	public void setRole(Role role) {
+		this.role = role.name();
+	}
+	
 	@Override
 	public String toString() {
 		return "UserModel [id=" + id + ", login=" + login + ", password=" + password + ", lastName=" + lastName

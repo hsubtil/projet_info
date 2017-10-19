@@ -14,6 +14,7 @@ import javax.jms.ObjectMessage;
 import javax.jms.Queue;
 import javax.jms.TextMessage;
 
+import common.dto.User;
 import common.model.UserModel;
 
 /**
@@ -27,11 +28,11 @@ public class MessageReceiverSync implements MessageReceiverSyncLocal {
     
 	@Resource(mappedName = "java:/jms/queue/watcherqueue") Queue queue;
 	
-	public UserModel receiveMessage() {
+	public User receiveMessage() {
 		
 		JMSConsumer consumer = context.createConsumer(queue);
 		Message message = consumer.receive(3000);
-		UserModel userModel = new UserModel ();
+		User user = new User();
 		try{
 			
 			if (message instanceof TextMessage)
@@ -45,18 +46,18 @@ public class MessageReceiverSync implements MessageReceiverSyncLocal {
 			{
 				System.out.println("Queue: I received an ObjectMessage at " + new Date());
 				ObjectMessage objectMessage = (ObjectMessage) message;
-				userModel = (UserModel) objectMessage.getObject();
+				user = (User) objectMessage.getObject();
 				
 				System.out.println("User Details: ");
-				System.out.println("login:"+userModel.getLogin());
-				System.out.println("pwd:"+userModel.getPassword());
+				System.out.println("login:"+user.getLogin());
+				System.out.println("pwd:"+user.getPassword());
 			}	
 			//context.acknowledge();
 		} catch (JMSException e) {
 	        e.printStackTrace();
 	    }
 		
-		return userModel;
+		return user;
 	}
 
 }

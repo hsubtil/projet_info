@@ -5,7 +5,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
-import common.model.User;
+import common.dto.User;
 
 @Path ("/WatcherAuth")
 public interface IWatcherAuth {
@@ -14,7 +14,7 @@ public interface IWatcherAuth {
 	@Consumes("application/json")
 	@Produces("application/json")
 	@Path("/")
-	String getUser ( User user); // String User user
+	User getUser ( User user);
 	
 
 }
