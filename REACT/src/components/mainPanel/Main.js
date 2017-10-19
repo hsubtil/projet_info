@@ -1,20 +1,22 @@
 import React from 'react';
 import './main.css';
 import '../../lib/bootstrap-3.3.7/dist/css/bootstrap.min.css';
-import * as contentMapTmp from '../../source/contentMap.json';
-import * as presTmp from '../../source/pres.json';
 import Content from '../common/content/containers/Content';
 import BrowseContentPanel from '../browseContentPanel/containers/BrowseContentPanel';
 import Slid from '../common/slid/containers/Slid';
 import Presentation from '../common/presentation/containers/Presentation';
 import EditSlidPanel from '../editSlidPanel/containers/EditSlidPanel';
-
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import globalReducer from '../../reducers';
 
+
+import * as contentMapTmp from '../../source/contentMap.json';
+import * as presTmp from '../../source/pres.json';
+
 import {updateContentMap,updatePresentation} from '../../actions';
 
+var Comm = require('../../services/Comm.js');
 const store = createStore(globalReducer);
 
 //<Content id = "premiere slide" src="https://www.youtube.com/embed/gfe4emhwQkE" type ="video" title ="Slide lalalala" onlyContent = "true"/>
@@ -25,8 +27,7 @@ export default class Main extends React.Component{
  constructor(props) {
  super(props);
 
- //console.log(contentMapTmp);
-
+	this.comm=new Comm();
  	this.state = {
  			contentMap:contentMapTmp,
             id : this.props.id,
@@ -37,18 +38,36 @@ export default class Main extends React.Component{
             slidObject: {},
             pres : presTmp,
         };
-		this.handleSlidChange=this.handleSlidChange.bind(this);   
+
+
 		store.dispatch(updateContentMap(contentMapTmp)); 
 		store.dispatch(updatePresentation(presTmp));  
-
- 	}
-
-
-handleSlidChange(slid){
-	this.setState({slidObject:slid});
-
-	return;
+		// Bind local function to the current object
+		this.loadContentUpdate=this.loadContentUpdate.bind(this);
+		this.loadPresUpdate=this.loadPresUpdate.bind(this);
+		this.callbackErr =this.callbackErr.bind(this);
+		//FIRST ACTIONS
+		// try to load the contentMap from the server
+		this.comm.loadContent(this.loadContentUpdate,this.callbackErr);
+		// try to load the presentation from the server
+		this.comm.loadPres(0,this.loadPresUpdate,this.callbackErr);
+		// create the sokect connection between the server and the web browser
+		this.comm.socketConnection(this.state.uuid);
+	}
+	
+loadContentUpdate(data){
+	//send action to the store for update the current contentMap
+	store.dispatch(updateContentMap(data));
 }
+loadPresUpdate(data){
+	//send action to the store for update the current presentation
+	store.dispatch(updatePresentation(data));
+}
+callbackErr(msg){
+	console.error('Network Failure ?');
+	console.error(msg);
+}
+ 	
 
 
 

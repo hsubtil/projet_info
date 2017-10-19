@@ -3,6 +3,8 @@ import SlidList from '../components/SlidList';
 import EditMetaPres from '../components/EditMetaPres';
 import './presentation.css';
 import { connect } from 'react-redux';
+import {updatePresentation} from '../../../../actions';
+
 
 
 class Presentation extends React.Component {
@@ -19,6 +21,7 @@ class Presentation extends React.Component {
     this.handleChangeTitle= this.handleChangeTitle.bind(this); 
     this.handleChangeDescription = this.handleChangeDescription.bind(this); 
     this.savePresentation = this.savePresentation.bind(this);
+    this.updatePresentation = this.updatePresentation.bind(this);
 
     }   
 
@@ -26,20 +29,30 @@ class Presentation extends React.Component {
 
     fetch('http://localhost:1337/savePres', {
           method: 'POST',
-          body: JSON.stringify(this.props.pres
-            )
+          body: JSON.stringify(this.props.pres)
     });
     return;
 
   }
 
+  updatePresentation(id,title,description,slidArray){
+    const tmpPres={
+              id:id,
+              title:title,
+              description:description,
+              slidArray:slidArray,
+            };
+        this.props.dispatch(updatePresentation(tmpPres));
+
+  }
+
   handleChangeTitle (e) {
-    this.setState({title:  e.target.value});
+    this.updatePresentation(this.props.pres.id,e.target.value,this.props.pres.description,this.props.pres.slidArray);
     return;
   }
 
   handleChangeDescription (e) {
-    this.setState({description:  e.target.value});
+    this.updatePresentation(this.props.pres.id,this.props.pres.title,e.target.value,this.props.pres.slidArray);
     return;
   }
 
@@ -49,7 +62,7 @@ class Presentation extends React.Component {
     let editionForm; 
     let slidsList;
 
-    editionForm =(<EditMetaPres handleChangeTitle = {this.handleChangeTitle} handleChangedescription = {this.handleChangedescription} title ={this.props.pres.title} description = {this.props.pres.description}/>);
+    editionForm =(<EditMetaPres handleChangeTitle = {this.handleChangeTitle} handleChangeDescription = {this.handleChangeDescription} title ={this.props.pres.title} description={this.props.pres.description}/>);
 
     slidsList = (<SlidList slidArray = {this.props.pres.slidArray} contentMap = {this.props.contentMap}/>);
 
