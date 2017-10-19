@@ -2,26 +2,25 @@ import React, { Component } from 'react';
 import SlidList from '../components/SlidList';
 import EditMetaPres from '../components/EditMetaPres';
 import './presentation.css';
+import { connect } from 'react-redux';
 
 
-class Presentation extends Component {
+class Presentation extends React.Component {
 
     //class constructor whith given properties
     constructor(props) {
         super(props);
 
         this.state ={
-            id : this.props.pres.id,
-            title : this.props.pres.title,
-            description : this.props.pres.description,
-            slidArray : this.props.pres.slidArray,
+            pres : this.props.pres,
             contentMap : this.props.contentMap,
         };
 
     this.handleChangeTitle= this.handleChangeTitle.bind(this); 
-    this.handleChangeDescription = this.handleChangeDescription.bind(this);  
+    this.handleChangeDescription = this.handleChangeDescription.bind(this); 
 
     }   
+
 
   handleChangeTitle (e) {
     this.setState({title:  e.target.value});
@@ -38,10 +37,21 @@ class Presentation extends Component {
   render() {
     let editionForm; 
     let slidsList;
+    var newPres = JSON.stringify(this.props.pres);
+   
 
-    editionForm =(<EditMetaPres handleChangeTitle = {this.handleChangeTitle} handleChangedescription = {this.handleChangedescription} title ={this.state.title} description = {this.state.description}/>);
+    editionForm =(<EditMetaPres handleChangeTitle = {this.handleChangeTitle} handleChangedescription = {this.handleChangedescription} title ={this.props.pres.title} description = {this.props.pres.description}/>);
 
-    slidsList = (<SlidList slidArray = {this.state.slidArray} contentMap = {this.state.contentMap}/>);
+    slidsList = (<SlidList slidArray = {this.props.pres.slidArray} contentMap = {this.props.contentMap}/>);
+
+    fetch('https://localhost:1337/savePres', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: {newPres}
+    });
 
     return (
     <div>
@@ -51,8 +61,19 @@ class Presentation extends Component {
            </div>
     </div>
     );
-}
+  }
 }
 
 
-export default Presentation;
+const mapStateToProps = (state, ownProps) => {
+
+          console.log("Update Presentation");
+          console.log(state.updateModelReducer.presentation);
+          //TODO modifier en plus les fichiers JSON lors de la modification des slides et du contentMap
+        return {
+           contentMap : state.updateModelReducer.content_map,
+           pres : state.updateModelReducer.presentation,
+            
+        } 
+ };
+export default connect(mapStateToProps) (Presentation);

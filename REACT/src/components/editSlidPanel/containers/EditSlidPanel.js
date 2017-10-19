@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Slid from '../../common/slid/containers/Slid';
 import {connect } from 'react-redux';
-import {updateSlid} from '../../../actions'
 
 class EditSlidPanel extends React.Component {
 
@@ -18,7 +17,7 @@ class EditSlidPanel extends React.Component {
       render () {
          return (
           <div className ='Slid' >
-            <Slid slid ={this.props.selected_slid} displayMode="FULL_MNG" contentMap ={this.state.contentMap} />
+            <Slid slid ={this.props.selected_slid} displayMode="FULL_MNG" contentMap ={this.state.contentMap} editionIsPossible = "false"/>
           </div>  
           );
          

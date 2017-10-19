@@ -4,7 +4,7 @@ import Content from '../../../common/content/containers/Content';
 
 
 
-export default class EditMetaSlid extends React.Component{
+class EditMetaSlid extends React.Component{
 	 constructor(props) {
 	 super(props);
  }
@@ -35,4 +35,8 @@ export default class EditMetaSlid extends React.Component{
                 onlyContent = "true"
             /> 
 		 </div>
- ); }}
+ 		); 
+	}
+}
+
+export default EditMetaSlid;

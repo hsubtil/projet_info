@@ -7,12 +7,12 @@ class VisualonlyContent extends Component {
   
   render() {
       let render_visual;
-      switch(this.props.type){
+      switch(this.props.cont.type){
         case "img":
             render_visual=(
                     <img 
                         className='imgCard' 
-                        src={this.props.src}  
+                        src={this.props.cont.src}  
                     />
                 );
         break;
@@ -22,7 +22,7 @@ class VisualonlyContent extends Component {
                     <img 
                         className='imgCard'
                         width="100%"  
-                        src={this.props.src}  
+                        src={this.props.cont.src}  
                     />
 
                 );
@@ -31,7 +31,7 @@ class VisualonlyContent extends Component {
         case "video":
               render_visual=(
                     <object  width="100%" height="100%"
-                            data={this.props.src}>
+                            data={this.props.cont.src}>
                     </object>
 
                 );
@@ -41,7 +41,7 @@ class VisualonlyContent extends Component {
         case "web":
         render_visual=(
                 <iframe 
-                    src={this.props.src}  
+                    src={this.props.cont.src}  
                      width="100%" 
                      height="100%"
                      allowFullScreen

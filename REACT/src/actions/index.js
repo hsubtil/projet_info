@@ -25,3 +25,10 @@ export const updateSlid=(slid)=>{
 		obj:slid
 	};
 }
+
+export const updateSlidList=(slid)=>{
+	return {
+		type: 'UPDATE_PRESENTATION_SLIDS',
+		obj:slid
+	};
+}

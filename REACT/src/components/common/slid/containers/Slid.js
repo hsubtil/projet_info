@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import VisualShort from '../components/VisualShort';
 import EditMetaSlid from '../components/EditMetaSlid';
 import { connect } from 'react-redux';
-import {setSelectedSlid, updateSlid } from '../../../../actions';
+import {setSelectedSlid, updateSlid,updateSlidList } from '../../../../actions';
 
 import './slid.css'
 
@@ -22,32 +22,42 @@ class Slid extends React.Component {
     this.handleChangeTitle= this.handleChangeTitle.bind(this); 
     this.handleChangeTxt = this.handleChangeTxt.bind(this);  
     this.updateSelectedSlid=this.updateSelectedSlid.bind(this);
-    this.updateSlid=this.updateSlid.bind(this);
+    this.updateSlidValue=this.updateSlidValue.bind(this);
+
 
     }   
     
   updateSelectedSlid(){
+      if(this.props.editionIsPossible == "true")
+    {
       const tmpSlid={
               id:this.state.slid.id,
               title:this.state.slid.title,
               txt:this.state.slid.txt,
-              content_id:this.state.slid.content_id
+              content_id:this.props.slid.content_id,
             };
       this.props.dispatch(setSelectedSlid(tmpSlid));
+    }  
   }
-  updateSlid(id,title,txt,content_id){
-        // @Pia : Param non utilisé. Normal ???
-        this.props.dispatch(updateSlid(this.props.slid));
+  updateSlidValue(id,title,txt,content_id){
+    const tmpSlid={
+              id:id,
+              title:title,
+              txt:txt,
+              content_id:content_id,
+            };
+        this.props.dispatch(updateSlid(tmpSlid));
+        this.props.dispatch(updateSlidList(tmpSlid));
+
       }
 
   handleChangeTitle (e) {
-    this.setState({title:  e.target.value});
-    this.updateSlid(this.props.slid.id,this.state.title,this.props.slid.txt,this.props.slid.content_id);
+    this.updateSlidValue(this.props.slid.id,e.target.value,this.props.slid.txt,this.props.slid.content_id);
     return;
   }
 
   handleChangeTxt (e) {
-    this.setState({txt:  e.target.value});
+    this.updateSlidValue(this.props.slid.id,this.props.slid.title,e.target.value,this.props.slid.content_id);
     return;
   }
 

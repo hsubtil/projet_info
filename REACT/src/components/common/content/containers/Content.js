@@ -37,11 +37,11 @@ class Content extends Component {
 
     switch (this.props.onlyContent){
         case "true" : 
-            finalVisual = (<VisualonlyContent type = {cont.type} src = {cont.src} /> );
+            finalVisual = (<VisualonlyContent cont = {cont}/> );
         break;
 
         case "false" : 
-           finalVisual =  (<Visualfull id={cont.id} src={cont.src} type={cont.type} title={cont.title} />);
+           finalVisual =  (<Visualfull cont={cont}  />);
         break;
     }
     return (

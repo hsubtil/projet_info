@@ -39,7 +39,8 @@ export default class Main extends React.Component{
         };
 		this.handleSlidChange=this.handleSlidChange.bind(this);   
 		store.dispatch(updateContentMap(contentMapTmp)); 
-		store.dispatch(updatePresentation(presTmp));    
+		store.dispatch(updatePresentation(presTmp));  
+
  	}
 
 
@@ -52,12 +53,13 @@ handleSlidChange(slid){
 
 
  render() {
- 		const initSlid = {
+ 		
+		const initSlid = {
             id: "1",
             title: "A",
             txt: "some txt here",
             content_id:"1",
-        };
+        };  
 
 	 return (
 	 	<Provider store={store} >
