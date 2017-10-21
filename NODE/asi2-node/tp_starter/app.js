@@ -21,6 +21,14 @@ var bodyParser = require('body-parser'); //test
 app.use(bodyParser.json()); // support pour les ficher json 
 app.use(bodyParser.urlencoded({ extended: true }));  
 
+app.use(function(req,res,next){
+  res.set("Access-Control-Allow-Origin","http://localhost:3000");
+  res.set("Access-Control-Allow-Credentials",true);
+  res.set("Access-Control-Allow-Headers","Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+  
+
 var server = http.createServer(app);
 server.listen(CONFIG.port, function (){
 	var host = this.address().address;
