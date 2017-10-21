@@ -86,7 +86,7 @@ class Slid extends React.Component {
 
     return (
 
-    <div className ="Slid vertical-scroll" onClick={()=>this.updateSelectedSlid()} >
+    <div className ="Slid vertical-scroll thumbnail" onClick={()=>this.updateSelectedSlid()} >
         {finalVisual}
     </div>
     );
