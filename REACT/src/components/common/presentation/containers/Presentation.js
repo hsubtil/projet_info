@@ -26,12 +26,19 @@ class Presentation extends React.Component {
     }   
 
   savePresentation() {
-
-    fetch('http://localhost:1337/savePres', {
+//'Access-Control-Allow-Origin':
+    //	    'Access-Control-Allow-Origin':'*',
+    console.log(JSON.stringify(this.props.pres));
+    fetch('http://localhost:1337/savePres', {      
+	  credentials:'include',
+	  headers: {
+	    'Accept':'application/json',
+	    'Content-Type':'application/json'
+	  },
           method: 'POST',
           body: JSON.stringify(this.props.pres)
-    });
-    return;
+    }).catch(err => err);
+   // return;
 
   }
 
