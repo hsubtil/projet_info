@@ -1,6 +1,7 @@
 
 var io =require('socket.io-client') ;
 var axios=require('axios') ;
+var request_url = "http://localhost:1337";
 
 class Comm{
     constructor(){
@@ -16,7 +17,7 @@ class Comm{
     }
     
     loadPres(presId,callback,callbackErr){
-     axios.get('/loadPres')
+     axios.get(request_url+'/loadPres')
        .then(function (data) {
          var size = Object.keys(data.data).length;
          console.log("raw data");
@@ -38,7 +39,7 @@ class Comm{
     }
     
     loadContent(callback,callbackErr){
-     axios.get('/resources_list')
+     axios.get(request_url+'/resources_list')
        .then(function (data) {
          //console.log("raw content data");
          //console.log(data.data);
@@ -59,7 +60,7 @@ class Comm{
     }
     
     savPres(presJson, callbackErr){
-        axios.post('/savePres', presJson)
+        axios.post(request_url+'/savePres', presJson)
         .then(function (response) {
                 console.log(response);
             })
@@ -69,7 +70,7 @@ class Comm{
     }
     
     savContent(contentJson, callbackErr){
-        axios.post('/addContent', contentJson)
+        axios.post(request_url+'/addContent', contentJson)
         .then(function (response) {
                 console.log(response);
             })
@@ -81,7 +82,7 @@ class Comm{
     fileUpload(fileC,callback,callbackErr){
          var data = new FormData();
          data.append('file', fileC);
-        axios.post('/file-upload', data)
+        axios.post(request_url+'/file-upload', data)
         .then(function (response) {
                 console.log(response);
                 callback();
@@ -98,13 +99,14 @@ class Comm{
         console.log(this.socket);
         console.log("this.comm.io.uuid");
         console.log(this.comm.io.uuid);
-        this.socket.emit('data_comm',{'id':this.comm.io.uuid},function(test){
+        this.socket.emit('data_comm',this.comm.io.uuid,function(test){
             console.log(test);
         });
     }
     
     socketConnection(uuid){
-        this.socket = io.connect(process.env.SOCKET_URL);
+        this.socket = io.connect(request_url); //process.env.SOCKET_URL
+	console.log("SOCKETCONNECTION");
         this.comm.io.uuid=uuid;
         this.socket.on('connection', message=>{ this.emitOnConnect(message)});
 

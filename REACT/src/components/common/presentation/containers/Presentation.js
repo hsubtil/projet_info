@@ -5,7 +5,7 @@ import './presentation.css';
 import { connect } from 'react-redux';
 import {updatePresentation} from '../../../../actions';
 
-
+var Comm = require('../../../../services/Comm.js');
 
 class Presentation extends React.Component {
 
@@ -26,10 +26,13 @@ class Presentation extends React.Component {
     }   
 
   savePresentation() {
-//'Access-Control-Allow-Origin':
-    //	    'Access-Control-Allow-Origin':'*',
-    console.log(JSON.stringify(this.props.pres));
-    fetch('http://localhost:1337/savePres', {      
+    var comm=new Comm(); 
+    comm.savPres(this.props.pres,function(err){
+      if(err){
+	console.log(err);
+      }
+    })
+    /*fetch('http://localhost:1337/savePres', {      
 	  credentials:'include',
 	  headers: {
 	    'Accept':'application/json',
@@ -37,9 +40,7 @@ class Presentation extends React.Component {
 	  },
           method: 'POST',
           body: JSON.stringify(this.props.pres)
-    }).catch(err => err);
-   // return;
-
+    }).catch(err => err);*/
   }
 
   updatePresentation(id,title,description,slidArray){

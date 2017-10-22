@@ -27,7 +27,7 @@ export default class Main extends React.Component{
  constructor(props) {
  super(props);
 
-	this.comm=new Comm();
+	this.comm=new Comm(); 
  	this.state = {
  			contentMap:contentMapTmp,
             id : this.props.id,
@@ -50,9 +50,9 @@ export default class Main extends React.Component{
 		// try to load the contentMap from the server
 		this.comm.loadContent(this.loadContentUpdate,this.callbackErr);
 		// try to load the presentation from the server
-		this.comm.loadPres(0,this.loadPresUpdate,this.callbackErr);
+		this.comm.loadPres(0,this.loadPresUpdate,this.callbackErr); 
 		// create the sokect connection between the server and the web browser
-		this.comm.socketConnection(this.state.uuid);
+		this.comm.socketConnection("adsdq18qqdqd");  //Problem ! this.state.uuid
 	}
 	
 loadContentUpdate(data){

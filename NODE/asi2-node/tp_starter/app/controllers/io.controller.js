@@ -48,7 +48,6 @@ this.listen = function (server){
 
  	socket.on('disconnect', function() {
 	  console.log('Got disconnect!');
-	  console.log(socket);
 	  console.log(socket.id);
 	  delete socket_map[socket.id];
       
