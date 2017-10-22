@@ -1,9 +1,10 @@
-const commandReducer= (state={command:{}},action) => {
+const commandReducer= (state={cmdPres:{}},action) => {
 	console.log(action);
 	switch (action.type) {
 		case 'COMMAND_PRESENTATION':
-		  //TO DO
-		     return 
+		    console.log("COMMAND_PRESENTATION");
+		    const newState={cmdPres:action.obj};
+		    return newState;
 		default:
 			return state;
 	}	

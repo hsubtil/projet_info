@@ -1,13 +1,20 @@
 import React, { Component } from 'react';
 import Slid from '../../common/slid/containers/Slid';
-import Tools from '../../../services/Tools.js'
-import { updateSlid } from '../../../actions';
+import Tools from '../../../services/Tools.js';
+
+import { connect } from 'react-redux';
+import { updateSlid, sendNavCmd } from '../../../actions';
+
 
 class CommandButton extends Component {
 
     //class constructor whith given properties
     constructor(props) {
         super(props);
+	
+	this.add = this.add.bind(this);
+	this.remove = this.remove.bind(this);
+	this.save = this.save.bind(this);
 
     }   
     // Add slid by using updateModelReducer 
@@ -18,24 +25,28 @@ class CommandButton extends Component {
     }
 
     remove(){
-      this.props.dispatch(updateSlid(Tools.generateUUID,"","",""));
+      //TODO 
+      //this.props.dispatch(updateSlid(Tools.generateUUID,"","",""));
     }
 
     save(){
-      //TODO
+      this.props.dispatch(sendNavCmd("SAVE_CMD"));
     }
+
   //render function use to update the virtual dom
   render() {
 
           return (
-      <button className="btn btn-default" style={buttonStyle} onClick={()=>this.add()}>Add</button>
-      <button className="btn btn-default" style={buttonStyle} onClick={()=>this.remove()}>Remove</button>
-      <button className="btn btn-default" style={buttonStyle} onClick={()=>this.save()}>Save</button>
+	    <div>
+	      <button className="btn btn-default" onClick={()=>this.add()}>Add</button>
+	      <button className="btn btn-default" onClick={()=>this.remove()}>Remove</button>
+	      <button className="btn btn-default" onClick={()=>this.save()}>Save</button>
+	    </div>
     );
   	}
     }   
 
 
-export default CommandButton;
+export default connect()(CommandButton);
 
 

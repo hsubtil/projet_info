@@ -32,3 +32,10 @@ export const updateSlidList=(slid)=>{
 		obj:slid
 	};
 }
+
+export const sendNavCmd=(command)=>{
+	return {
+		type: 'COMMAND_PRESENTATION',
+		obj:command
+	};
+}

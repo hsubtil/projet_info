@@ -12,7 +12,6 @@ class SlidList extends Component {
           slidArray : this.props.slidArray,
           contentMap : this.props.contentMap,
         }
-
     }   
 
     getAllSlid(){

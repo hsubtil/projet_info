@@ -42,6 +42,18 @@ export default class Main extends React.Component{
 
 		store.dispatch(updateContentMap(contentMapTmp)); 
 		store.dispatch(updatePresentation(presTmp));  
+		store.subscribe(() => {
+		    console.log('IN MAIN SUBSCRIBE');
+		    console.log(store.getState().commandReducer);
+		    // If SAVE_CMD : Save Pres
+		      if(store.getState().commandReducer.cmdPres == 'SAVE_CMD'){
+			console.log("IN MAIN SAVE_CMD");
+			  this.comm.savPres(
+			    store.getState().updateModelReducer.presentation,
+			    this.callbackErr
+			    );
+		      }
+		      });
 		// Bind local function to the current object
 		this.loadContentUpdate=this.loadContentUpdate.bind(this);
 		this.loadPresUpdate=this.loadPresUpdate.bind(this);
@@ -67,8 +79,6 @@ callbackErr(msg){
 	console.error('Network Failure ?');
 	console.error(msg);
 }
- 	
-
 
 
  render() {

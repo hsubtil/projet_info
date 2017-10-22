@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import SlidList from '../components/SlidList';
 import EditMetaPres from '../components/EditMetaPres';
+import CommandButton from '../../../browsePresentationPanel/containers/CommandButtons';
+// /home/hugo/Documents/projet_info/REACT/src/components/browsePresentationPanel/containers
 import './presentation.css';
 import { connect } from 'react-redux';
 import {updatePresentation} from '../../../../actions';
@@ -20,18 +22,11 @@ class Presentation extends React.Component {
 
     this.handleChangeTitle= this.handleChangeTitle.bind(this); 
     this.handleChangeDescription = this.handleChangeDescription.bind(this); 
-    this.savePresentation = this.savePresentation.bind(this);
+   // this.savePresentation = this.savePresentation.bind(this);
     this.updatePresentation = this.updatePresentation.bind(this);
 
     }   
 
-  savePresentation() {
-    var comm=new Comm(); 
-    comm.savPres(this.props.pres,function(err){
-      if(err){
-	console.log(err);
-      }
-    })
     /*fetch('http://localhost:1337/savePres', {      
 	  credentials:'include',
 	  headers: {
@@ -41,7 +36,7 @@ class Presentation extends React.Component {
           method: 'POST',
           body: JSON.stringify(this.props.pres)
     }).catch(err => err);*/
-  }
+
 
   updatePresentation(id,title,description,slidArray){
     const tmpPres={
@@ -69,16 +64,17 @@ class Presentation extends React.Component {
   render() {
     let editionForm; 
     let slidsList;
-
+    let navBar;
+    
+    //     <button onClick={()=>this.savePresentation()}>Save</button>
+    navBar = (<CommandButton/>);
     editionForm =(<EditMetaPres handleChangeTitle = {this.handleChangeTitle} handleChangeDescription = {this.handleChangeDescription} title ={this.props.pres.title} description={this.props.pres.description}/>);
 
     slidsList = (<SlidList slidArray = {this.props.pres.slidArray} contentMap = {this.props.contentMap}/>);
 
     return (
         <div>
-            <div>
-                  <button onClick={()=>this.savePresentation()}>Save</button>
-            </div>
+	      {navBar}
             <div>
                    {editionForm}
                    <div>

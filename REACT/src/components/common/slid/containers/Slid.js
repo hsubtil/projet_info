@@ -42,6 +42,7 @@ class Slid extends React.Component {
     }  
   }
   updateSlidValue(id,title,txt,content_id){
+    console.log("updateSlidValue in slid.js");
     const tmpSlid={
               id:id,
               title:title,
