@@ -21,8 +21,8 @@ this.listen = function (server){
   
  	socket.on('data_comm',function(id){
 	  	console.log('io.controller.data_comm');
-	  	socket_map[id]=socket;
-	  	console.log("New watcher : "+id);
+	  	socket_map[socket.id]=socket;
+	  	console.log("New watcher : " + socket.id);
 	  });
 
  	socket.on('slidEvent',function(json_object){

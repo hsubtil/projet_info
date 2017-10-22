@@ -29,7 +29,7 @@ export default class Main extends React.Component{
 
 	this.comm=new Comm(); 
  	this.state = {
- 			contentMap:contentMapTmp,
+ 	    contentMap:contentMapTmp,
             id : this.props.id,
             src : this.props.src,
             type : this.props.type,
@@ -73,12 +73,12 @@ callbackErr(msg){
 
  render() {
  		
-		const initSlid = {
+	const initSlid = {
             id: "1",
             title: "A",
             txt: "some txt here",
             content_id:"1",
-        };  
+        };  // TODO Pia : Remove that ? c'est shalg !
 
 	 return (
 	 	<Provider store={store} >

@@ -30,10 +30,12 @@ class Slid extends React.Component {
   updateSelectedSlid(){
       if(this.props.editionIsPossible == "true")
     {
+     // console.log(this.props.slid);
+      //console.log(this.state.slid);
       const tmpSlid={
-              id:this.state.slid.id,
-              title:this.state.slid.title,
-              txt:this.state.slid.txt,
+              id:this.props.slid.id,
+              title:this.props.slid.title,
+              txt:this.props.slid.txt,
               content_id:this.props.slid.content_id,
             };
       this.props.dispatch(setSelectedSlid(tmpSlid));
