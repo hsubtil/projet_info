@@ -10,6 +10,7 @@ var ContentModel = require("../models/content.model.js");
 module.exports = this;
 var io;
 var socket_map = {};
+var pres_id;
 
 this.listen = function (server){
   console.log("io.controller.listen");
@@ -27,12 +28,12 @@ this.listen = function (server){
 
  	socket.on('slidEvent',function(json_object){
 	  	console.log('io.controller.slidEvent');
+		console.log(json_object);
 	  	//console.log(json_object);
-	  	if(json_object['CMD']==="PAUSE"){
-	  		console.log("CMD is pause");
-	  	}
-	  	else{
-	  		ContentModel.read(json_object['PRES_ID'],function(err,content){
+	  	if(json_object['CMD']==="START"){
+	  		console.log("CMD is START");
+			pres_id = json_object['PRES_ID'];
+			ContentModel.read(pres_id,function(err,content){
 	  			if(!!err){
 	  				console.log(err);
                 	return err;
@@ -43,6 +44,10 @@ this.listen = function (server){
 	  			}
 	  			
 	  		});
+	  	}
+	  	else{
+		      console.log(json_object['CMD']);
+	  		//TO DO
 	  	}
 	  });
 

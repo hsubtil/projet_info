@@ -127,6 +127,7 @@ class Comm{
     }
      
     play(presUUID){
+      console.log("EMIT START "+presUUID);
         this.socket.emit('slidEvent', {'CMD':"START",'PRES_ID':presUUID});
     }
     

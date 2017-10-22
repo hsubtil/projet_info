@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Slid from '../../common/slid/containers/Slid';
 import {connect } from 'react-redux';
+import PresentationNavigation from './PresentationNavigation';
 
 class EditSlidPanel extends React.Component {
 
@@ -15,9 +16,14 @@ class EditSlidPanel extends React.Component {
       }
 
       render () {
+	let navBar;
+	navBar = (<PresentationNavigation/>);
          return (
-          <div className ='Slid' >
-            <Slid slid ={this.props.selected_slid} displayMode="FULL_MNG" contentMap ={this.state.contentMap} editionIsPossible = "false"/>
+	   <div>
+	    {navBar}	   
+	    <div className ='Slid' >
+	      <Slid slid ={this.props.selected_slid} displayMode="FULL_MNG" contentMap ={this.state.contentMap} editionIsPossible = "false"/>
+            </div>
           </div>  
           );
          

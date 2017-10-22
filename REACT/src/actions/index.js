@@ -39,3 +39,10 @@ export const sendNavCmd=(command)=>{
 		obj:command
 	};
 }
+
+export const sendPresCmd=(command)=>{
+	return {
+		type: 'NAV_PRESENTATION',
+		obj:command
+	};
+}

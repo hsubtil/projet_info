@@ -3,7 +3,6 @@ import './editMetaSlid.css'
 import Content from '../../../common/content/containers/Content';
 
 
-
 class EditMetaSlid extends React.Component{
 	 constructor(props) {
 	 super(props);

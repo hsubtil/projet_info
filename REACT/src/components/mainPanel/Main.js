@@ -42,18 +42,7 @@ export default class Main extends React.Component{
 
 		store.dispatch(updateContentMap(contentMapTmp)); 
 		store.dispatch(updatePresentation(presTmp));  
-		store.subscribe(() => {
-		    console.log('IN MAIN SUBSCRIBE');
-		    console.log(store.getState().commandReducer);
-		    // If SAVE_CMD : Save Pres
-		      if(store.getState().commandReducer.cmdPres == 'SAVE_CMD'){
-			console.log("IN MAIN SAVE_CMD");
-			  this.comm.savPres(
-			    store.getState().updateModelReducer.presentation,
-			    this.callbackErr
-			    );
-		      }
-		      });
+		
 		// Bind local function to the current object
 		this.loadContentUpdate=this.loadContentUpdate.bind(this);
 		this.loadPresUpdate=this.loadPresUpdate.bind(this);
@@ -64,7 +53,27 @@ export default class Main extends React.Component{
 		// try to load the presentation from the server
 		this.comm.loadPres(0,this.loadPresUpdate,this.callbackErr); 
 		// create the sokect connection between the server and the web browser
-		this.comm.socketConnection("adsdq18qqdqd");  //Problem ! this.state.uuid
+		this.comm.socketConnection("adsdq18qqdqd");  //Problem ! this.state.uuid is null. I've put some rand value
+		store.subscribe(() => {
+		  // TODO Ajouter declanchement des evenements sur la pres (start, ... );
+		    console.log('IN MAIN SUBSCRIBE');
+		    console.log(store.getState().commandReducer);
+		    // If SAVE_CMD : Save Pres
+		      if(store.getState().commandReducer.cmdPres == 'SAVE_CMD'){
+			  this.comm.savPres(
+			    store.getState().updateModelReducer.presentation,
+			    this.callbackErr
+			    );
+		      }
+		      if(store.getState().commandReducer.cmdPres == 'PLAY'){
+			this.comm.play(this.props.id); // TODO : Check id
+		      }
+		      if(store.getState().commandReducer.cmdPres == 'BEGIN'){
+			this.comm.begin();
+		      }
+
+		      });
+
 	}
 	
 loadContentUpdate(data){
