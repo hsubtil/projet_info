@@ -2,6 +2,7 @@
 
 var fs = require("fs");
 var path = require("path");
+var http = require("http");
 var CONFIG = JSON.parse(process.env.CONFIG);
 
 module.exports = this;
@@ -48,4 +49,40 @@ this.getDataFilePath = function(fileName) {
 
 this.getNewFileName = function(id, originalFileName) {
 	return id + '.' + originalFileName.split('.').pop();
+}
+
+this.loadPres = function (callback){
+  var options = {
+    host:'localhost',
+    port:'1337',
+    path:'/loadPres',
+    method:'GET',
+    headers:{
+      'Content-Type':'application/json'
+    }
+  };
+  
+  var req = http.get(options,function(res){
+    res.on('data',function(chunk){
+	callback(JSON.parse(chunk));
+    }).on("error",function(err){
+	console.log("Error in load pres io.controller.js " +err)
+      });
+  });
+  
+}
+// ???
+this.readPresentationSlide = function(presId,slidNumber){
+  ContentModel.read(res[pres_id]["slidArray"][slidNumber]["id"],function(err,content){
+				    if(!!err){
+					    console.log(err);
+					    return err;
+				    }
+				    console.log(socket_map);
+				    for (var element in socket_map){
+					    socket_map[element].emit('currentSlidEvent',content);
+				    }
+				    
+			    });
+  
 }

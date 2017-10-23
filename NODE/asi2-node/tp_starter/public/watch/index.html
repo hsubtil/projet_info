@@ -8,18 +8,21 @@
       <script type="text/javascript" src="/socket.io/socket.io.js"></script>
       <h1>Watch page</h1>
       <h2>Content</h2>
-      <a id="content_id"></a>
-      <src id="image" src="test"></src>
-      <iframe id="video" width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
-      
+      <p id="title"> </p>
+      <p id="description"> </p>
+      <p id="content_title"> </p>
+      <img id="image" src=" "></img>
+      <iframe id="video" width="560" height="315" src=" " frameborder="0" allowfullscreen></iframe>
+ 
       <script>
 	  var socket = io.connect('http://localhost:1337');
 	  socket.on('connection', function(message) {
 	    socket.emit('data_comm', socket.id)
 	  })
-	  socket.on('currentSlidEvent', function(content) {
+	  socket.on('currentSlidEvent', function(data) {
 	    alert('Slide Changed');
-	    var idParam = document.createElement('p');
+	    console.log(data.content_src);
+	   /* var idParam = document.createElement('p');
 	    var typeParam = document.createElement('p');
 	    var titleParam = document.createElement('p');
 	    var fileName = document.createElement('p');
@@ -29,21 +32,30 @@
 	    typeParam.appendChild(document.createTextNode("type : " + content['type']));
 	    titleParam.appendChild(document.createTextNode("title : " + content['title']));
 	    fileName.appendChild(document.createTextNode("fileName : " + content['fileName']));
-
+    
+    {'content_src':content['src'],'content_title':content['title'],'title':title,'description':description} 'content_type':content['type']
 	    
 	    document.body.appendChild(idParam);
 	    document.body.appendChild(typeParam);
 	    document.body.appendChild(titleParam);
-	    document.body.appendChild(fileName);
+	    document.body.appendChild(fileName);*/
+	    document.getElementById("title").innerHTML = data.title;
+	    document.getElementById("content_title").innerHTML = data.content_title;
+	    document.getElementById("description").innerHTML = data.description;
 	    
-	    if(content['type']==="img"){
-	      alert("IN");
+	    if(data.content_type==="img"){
+	      console.log("img");
 	      var imageElement = document.getElementById("image");
-	      imageElement.setAttribute('src', content['src']);
+	      imageElement.setAttribute('src', data.content_src);
+	      var videoElement = document.getElementById('video');
+	      videoElement.setAttribute('src', " ");
 	    }
-	    else{
-	    var videoElement = document.getElementById('video');
-	    videoElement.setAttribute('src', content['src']);
+	      else{
+	      console.log("video");
+	      var videoElement = document.getElementById('video');
+	      videoElement.setAttribute('src', data.content_src);
+	      	      var imageElement = document.getElementById("image");
+	      imageElement.setAttribute('src', " ");
 	      //iframe2
 	    }
 	    //document.body.appendChild(srcParam);

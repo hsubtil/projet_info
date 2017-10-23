@@ -71,12 +71,14 @@ ContentModel.read = function (contentModel_id, cb){
 
     utils.fileExists(filePath, function(err) {
       if (err) {
-        cb(new Error(">>> Error in ContentModel.read: file does not exist"));
-    }});
-
-    var metaData = JSON.parse(fs.readFileSync(filePath));
-    var contentModel = new ContentModel(metaData);
-    cb(null,contentModel); //TODO : Check null in callback
+        cb(new Error(">>> Error in ContentModel.read: "+filePath+" file does not exist"));
+    }
+    else{
+          var metaData = JSON.parse(fs.readFileSync(filePath));
+	  var contentModel = new ContentModel(metaData);
+	cb(null,contentModel); //TODO : Check null in callback
+    }      
+    });
   }
   
 }

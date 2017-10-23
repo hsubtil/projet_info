@@ -65,11 +65,27 @@ export default class Main extends React.Component{
 			    this.callbackErr
 			    );
 		      }
-		      if(store.getState().commandReducer.cmdPres == 'PLAY'){
-			this.comm.play(this.props.id); // TODO : Check id
-		      }
-		      if(store.getState().commandReducer.cmdPres == 'BEGIN'){
-			this.comm.begin();
+		      switch(store.getState().commandReducer.cmdPres){
+			case 'PLAY':
+			  this.comm.play("0"); // TODO : Check id
+			  break;
+			case 'BEGIN':
+			  this.comm.begin();
+			  break;
+			case 'FORWARD':
+			  this.comm.forward();
+			  break;
+			case 'BACKWARD':
+			  this.comm.backward();
+			  break;
+			case 'END':
+			  this.comm.end();
+			  break;
+			case 'PAUSE':
+			  this.comm.pause();
+			  break;
+			default:
+			  return;
 		      }
 
 		      });
