@@ -46,3 +46,10 @@ export const sendPresCmd=(command)=>{
 		obj:command
 	};
 }
+
+export const updateDraggedElt=(content_id)=>{
+	return {
+		type: 'UPDATE_DRAG_CONTENT',
+		obj:content_id
+	};
+}

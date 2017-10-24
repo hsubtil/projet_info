@@ -107,13 +107,6 @@ callbackErr(msg){
 
 
  render() {
- 		
-	const initSlid = {
-            id: "1",
-            title: "A",
-            txt: "some txt here",
-            content_id:"1",
-        };  // TODO Pia : Remove that ? c'est shalg !
 
 	 return (
 	 	<Provider store={store} >
@@ -123,7 +116,7 @@ callbackErr(msg){
 				 	<Presentation pres = {this.state.pres} contentMap = {this.state.contentMap}/>	
 				  </div>
 				<div className='col-md-6 col-lg-6 height-100'>
-					<EditSlidPanel selected_slid = {initSlid} contentMap = {this.state.contentMap}/>
+					<EditSlidPanel selected_slid = {this.state.contentMap[0]} contentMap = {this.state.contentMap}/>
 				</div>
 				<div className='col-md-3 col-lg-3 height-100'>
 					<BrowseContentPanel contentMap = {this.state.contentMap} />

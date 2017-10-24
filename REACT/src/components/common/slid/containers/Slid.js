@@ -23,6 +23,8 @@ class Slid extends React.Component {
     this.handleChangeTxt = this.handleChangeTxt.bind(this);  
     this.updateSelectedSlid=this.updateSelectedSlid.bind(this);
     this.updateSlidValue=this.updateSlidValue.bind(this);
+    this.allowDrop = this.allowDrop.bind(this);
+    this.drop = this.drop.bind(this);
 
 
     }   
@@ -54,6 +56,15 @@ class Slid extends React.Component {
 
       }
 
+      
+  allowDrop(ev) {
+    ev.preventDefault();
+  }
+   drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+  }
   handleChangeTitle (e) {
     this.updateSlidValue(this.props.slid.id,e.target.value,this.props.slid.txt,this.props.slid.content_id);
     return;
@@ -75,11 +86,11 @@ class Slid extends React.Component {
 
     switch (this.state.displayMode){
         case "SHORT" :
-            finalVisual = (<VisualShort slid = {this.props.slid} contentMap = {this.props.contentMap} content_id = {this.props.slid.content_id}/>);
+            finalVisual = (<VisualShort slid = {this.props.slid} contentMap = {this.props.contentMap} content_id = {this.props.slid.content_id} />);
         break;
 
         case "FULL_MNG":
-            finalVisual =(<EditMetaSlid handleChangeTitle = {this.handleChangeTitle} handleChangeTxt = {this.handleChangeTxt} slid = {this.props.slid} contentMap = {this.props.contentMap} content_id = {this.props.slid.content_id}/>);
+            finalVisual =(<EditMetaSlid handleChangeTitle = {this.handleChangeTitle} handleChangeTxt = {this.handleChangeTxt} slid = {this.props.slid} contentMap = {this.props.contentMap} content_id = {this.props.slid.content_id} allowDrop = {this.allowDrop} drop = {this.drop}/>);
         break;
 
         default : 

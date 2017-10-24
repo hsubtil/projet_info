@@ -9,7 +9,7 @@ class VisualShort extends Component {
   render() {   
  
     return (
-        <div className ="SlideShort">
+        <div className ="SlideShort" ondrop="this.props.drop(event)" ondragover="this.props.allowDrop(event)">
             <h5>Title : {this.props.slid.title}</h5>
             <p> Text : {this.props.slid.txt}</p>
             <Content 

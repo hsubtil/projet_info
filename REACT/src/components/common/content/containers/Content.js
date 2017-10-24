@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import VisualonlyContent from '../components/VisualonlyContent';
 import Visualfull from '../components/Visualfull';
+import { updateDraggedElt} from '../../../../actions';
+
 class Content extends Component {
 
     //class constructor whith given properties
@@ -8,8 +10,10 @@ class Content extends Component {
         super(props);
 
     this.getContentById = this.getContentById.bind(this);
-    }   
-
+    this.drag = this.drag.bind(this);
+    this.updateDraggedElt = this.updateDraggedElt.bind(this);
+    } 
+  
      getContentById (){
 
     var cont = {};
@@ -30,6 +34,16 @@ class Content extends Component {
       return cont;
 
     }
+    
+    drag(ev) {
+	//ev.dataTransfer.setData("text", ev.target.id);
+      console.log(ev.target.id);
+	this.updateDraggedElt(ev.target.id);
+    }
+    
+    updateDraggedElt (content_id) {
+      this.props.dispatch (updateDraggedElt(content_id));
+    }
   //render function use to update the virtual dom
   render() {
     let finalVisual;
@@ -41,11 +55,11 @@ class Content extends Component {
         break;
 
         case "false" : 
-           finalVisual =  (<Visualfull cont={cont}  />);
+           finalVisual =  (<Visualfull cont={cont}  drag = {this.drag} />);
         break;
     }
     return (
-        <div className ="contentPanel">
+        <div className ="contentPanel" >
             {finalVisual}
         </div>
     );

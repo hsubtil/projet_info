@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import SlidList from '../components/SlidList';
 import EditMetaPres from '../components/EditMetaPres';
 import CommandButton from '../../../browsePresentationPanel/containers/CommandButtons';
-// /home/hugo/Documents/projet_info/REACT/src/components/browsePresentationPanel/containers
 import './presentation.css';
 import { connect } from 'react-redux';
 import {updatePresentation} from '../../../../actions';
@@ -22,20 +21,9 @@ class Presentation extends React.Component {
 
     this.handleChangeTitle= this.handleChangeTitle.bind(this); 
     this.handleChangeDescription = this.handleChangeDescription.bind(this); 
-   // this.savePresentation = this.savePresentation.bind(this);
     this.updatePresentation = this.updatePresentation.bind(this);
 
     }   
-
-    /*fetch('http://localhost:1337/savePres', {      
-	  credentials:'include',
-	  headers: {
-	    'Accept':'application/json',
-	    'Content-Type':'application/json'
-	  },
-          method: 'POST',
-          body: JSON.stringify(this.props.pres)
-    }).catch(err => err);*/
 
 
   updatePresentation(id,title,description,slidArray){

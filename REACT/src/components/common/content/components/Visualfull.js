@@ -11,7 +11,9 @@ class Visualfull extends Component {
       switch(this.props.cont.type){
         case "img":
             render_visual=(
-                <div>
+                <div 
+		    draggable="true"
+		    ondragstart="this.props.drag(event)">
                     <h5>Title : {this.props.cont.title}</h5>
                     <h6>ID : {this.props.cont.id}</h6>
                     <img 
@@ -24,7 +26,9 @@ class Visualfull extends Component {
 
         case "img_url" :
         render_visual=(
-                <div>
+                <div
+		    draggable="true"
+		    ondragstart="this.props.drag(event)">
                     <h5>Title : {this.props.cont.title}</h5>
                     <h6>ID : {this.props.cont.id}</h6>
                     <img 
@@ -39,7 +43,9 @@ class Visualfull extends Component {
 
         case "video":
               render_visual=(
-                 <div>
+                 <div 
+		    draggable="true"
+		    ondragstart="this.props.drag(event)">
                     <h5>Title : {this.props.cont.title}</h5>
                     <h6>ID : {this.props.cont.id}</h6>
                     <object  width="100%" height="100%"
@@ -53,11 +59,13 @@ class Visualfull extends Component {
 
         case "web":
         render_visual=(
-        <div>
+        <div 
+		    draggable="true"
+		    ondragstart="this.props.drag(event)">
                 <h5>Title : {this.props.cont.title}</h5>
                 <h6>ID : {this.props.cont.id}</h6>
                 <iframe 
-                    src={this.props.cont.src}  
+		     src={this.props.cont.src}  
                      width="100%" 
                      height="100%"
                      allowFullScreen
