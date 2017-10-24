@@ -81,8 +81,16 @@ router.post('/login', function(request, response){
 	    'Content-Length': data.length
 	  }
 	};
-
-	var req = http.request(options, function(res) {
+/*******************COMMENT WHEN JEE IS RUNNING*******************/
+	if(request.body['login']==='hugo'){
+	  console.log("INNNNNN");
+	  response.send({'role':"ADMIN",'validAuth':"true"});
+	}
+	else{
+	  response.send({'role':"USER",'validAuth':"true"});
+	}
+/***********  COMMENT WHEN JEE IS NOT RUNNING ***********************/
+/*	var req = http.request(options, function(res) {
 	  var msg = '';
 	  res.setEncoding('utf8');
 	  
@@ -122,6 +130,7 @@ router.post('/login', function(request, response){
 
 	req.write(data);
 	req.end();
+*/
 
 });
 
