@@ -10,7 +10,7 @@ class EditMetaSlid extends React.Component{
 
  render(){
 	 return (
-		 <div className="form-group">
+		 <div className="form-group" >
 			 <label htmlFor="currentSlideTitle">Title </label>
 				 <input
 					 type="text"
@@ -29,11 +29,13 @@ class EditMetaSlid extends React.Component{
 					 value={this.props.slid.txt}>
 			 	</textarea>
 			 	
-			  <Content 
-                contentMap = {this.props.contentMap} 
-                content_id = {this.props.slid.content_id}
-                onlyContent = "true"
-            /> 
+			 <div className = "content" ondrop="this.props.drop(event)" ondragover="this.props.allowDrop(event)">
+			    <Content 
+				    contentMap = {this.props.contentMap} 
+				    content_id = {this.props.slid.content_id}
+				    onlyContent = "true"
+			      /> 
+			  </div>
 		 </div>
  		); 
 	}

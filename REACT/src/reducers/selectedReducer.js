@@ -9,6 +9,9 @@ const selectedReducer= (state={slid:{}},action) => {
 			const newState2={slid:action.obj};			
 			console.log(newState2);
 			return newState2;
+		case 'UPDATE_DRAG_CONTENT' : 
+		  const newDragContent = {slid : state.slid, content : action.obj};
+		  return newDragContent;
 		default:
 			return state;
 	}	
