@@ -16,7 +16,7 @@ http://localhost:8080/FrontAuthWatcherWebService/rest/WatcherAuth
 { "login":"bastien", "password":"kikou"}
 
 
-clic droit, create database, ASI2
+clic droit, create database: ASI2
 
 CREATE TABLE ASI2.users (
 id INT (11) PRIMARY KEY NOT NULL AUTO_INCREMENT,

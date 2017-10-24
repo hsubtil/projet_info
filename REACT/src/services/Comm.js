@@ -143,13 +143,14 @@ class Comm{
         this.socket.emit('slidEvent', {'CMD':"END"});
     }
 
-    emitLogin(authJson,callbackErr){
+    emitLogin(authJson,callback){
         axios.post(request_url+'/login', authJson)
         .then(function (response) {
-                console.log(response);
+                console.log(response.data);
+                callback(response.data);
             })
         .catch(function (error) {
-                callbackErr(error);
+                callback(error);
             });
 
     }

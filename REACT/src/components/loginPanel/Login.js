@@ -1,7 +1,9 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import './login.css';
 import '../../lib/bootstrap-3.3.7/dist/css/bootstrap.min.css';
-
+import Main from '../mainPanel/Main';
+import Watch from '../watchPanel/Watch';
 
 var Comm = require('../../services/Comm.js');
 
@@ -38,7 +40,33 @@ export default class Login extends React.Component{
   		console.log("IN CHECK LOGIN");
   		var json_to_send = {'login':this.state.login,'password':this.state.password};
   		console.log(json_to_send);
-  		this.comm.emitLogin(json_to_send,this.callbackErr);
+  		this.comm.emitLogin(json_to_send,function(reply){
+  			if(reply === "")
+		    {
+		    	console.log("Empty reply from JEE webservice");	  
+		    	//response.redirect("/");  // TODO Page erreur de connection: erreur du webservice
+		    }
+		    else{
+		  		if(reply['validAuth'] === false){
+		  			console.log("validAuth is false");
+		  			alert('Login or password invalid, please try again ;)');
+			    	//response.redirect("/");  // TODO Page erreur de connection avec login pwd incorrecte
+			    	
+			    }
+			    else{
+			 
+			  		if(reply['role'] === 'ADMIN'){
+				    	//response.redirect("/admin");
+				    	ReactDOM.render(<Main />, document.getElementById('root'));
+				    }
+				    else{
+				    	//response.redirect("/watch");	
+				    	ReactDOM.render(<Watch />, document.getElementById('root'));
+    
+				    }
+				}
+		    } 			
+  		});
  	}
 
  	callbackErr(msg){
